@@ -44,11 +44,11 @@ TagManager:
   - name: Environment
     uniqueID: 1686674723
     locked: 0
-  - name: Dynamic
-    uniqueID: 3448263317
-    locked: 0
   - name: Background
     uniqueID: 1713562095
+    locked: 0
+  - name: Dynamic
+    uniqueID: 3448263317
     locked: 0
   m_RenderingLayers:
   - Default
