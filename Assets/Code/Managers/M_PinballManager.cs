@@ -19,6 +19,8 @@ public class M_PinballManager : MonoBehaviour
     [SerializeField]
     KeyCode sliderActivation = KeyCode.Space;
 
+    public int score = 0;
+
 
     [Header("EXTERNAL REFERENCES")]
     public B_ShovelMotor rightMotor;
