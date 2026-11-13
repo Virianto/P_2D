@@ -3281,6 +3281,7 @@ GameObject:
   - component: {fileID: 884043374}
   - component: {fileID: 884043373}
   - component: {fileID: 884043372}
+  - component: {fileID: 884043375}
   m_Layer: 0
   m_Name: LeftHingeJoint
   m_TagString: Untagged
@@ -3356,6 +3357,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1466915648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &884043375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884043371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc58a325d405723488639b9cd08e8609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::B_ShovelMotor
+  hinge: {fileID: 884043372}
 --- !u!1 &889951853
 GameObject:
   m_ObjectHideFlags: 0
@@ -6258,6 +6272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc58a325d405723488639b9cd08e8609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::B_ShovelMotor
+  hinge: {fileID: 1403068795}
 --- !u!1 &1426863922
 GameObject:
   m_ObjectHideFlags: 0
@@ -6976,6 +6991,7 @@ GameObject:
   - component: {fileID: 1579309744}
   - component: {fileID: 1579309743}
   - component: {fileID: 1579309746}
+  - component: {fileID: 1579309747}
   m_Layer: 0
   m_Name: SliderJointBase
   m_TagString: Untagged
@@ -7157,6 +7173,19 @@ SliderJoint2D:
   m_TranslationLimits:
     m_LowerTranslation: 0.1
     m_UpperTranslation: 2
+--- !u!114 &1579309747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579309740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ea1feccf3adcc44aaee8d0b388b5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::B_SliderJoint
+  slider: {fileID: 1579309746}
 --- !u!1 &1614356959
 GameObject:
   m_ObjectHideFlags: 0
@@ -10183,9 +10212,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72044677685a45a4d9f2516ce8350450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::M_PinballManager
-  rightShovelMotor: {fileID: 1403068794}
   rightShovelActivation: 109
   leftShovelActivation: 122
+  sliderActivation: 32
+  rightMotor: {fileID: 1403068798}
+  leftMotor: {fileID: 884043375}
+  slider: {fileID: 1579309747}
 --- !u!1 &2074175486
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Aquí va el enunciado del propósito 
+/// Manager de todas las funcionalidades del pinball
 /// </summary>
 public class M_PinballManager : MonoBehaviour
 {
@@ -9,18 +9,21 @@ public class M_PinballManager : MonoBehaviour
     #region ATTRIBUTES
 
 
+    [Header("EDITABLE VALUES")]
     [SerializeField]
-    GameObject rightShovelMotor;
-
-    [SerializeField]
-
     KeyCode rightShovelActivation = KeyCode.M;
 
     [SerializeField]
-
     KeyCode leftShovelActivation = KeyCode.Z;
 
+    [SerializeField]
+    KeyCode sliderActivation = KeyCode.Space;
 
+
+    [Header("EXTERNAL REFERENCES")]
+    public B_ShovelMotor rightMotor;
+    public B_ShovelMotor leftMotor;
+    public B_SliderJoint slider;
     #endregion
 
 
@@ -29,14 +32,17 @@ public class M_PinballManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(rightShovelActivation))
-        {
-            
+        if (Input.GetKey(rightShovelActivation))
+        { 
+            rightMotor.ActivateHingeMotor();
         }
-
-        if (Input.GetKeyDown(leftShovelActivation))
+        if (Input.GetKey(leftShovelActivation))
         {
-            //El motor izquierdo se activa
+            leftMotor.ActivateHingeMotor();
+        }
+        if (Input.GetKeyDown(sliderActivation))
+        {
+            slider.ActivateSlider();
         }
     }
 
