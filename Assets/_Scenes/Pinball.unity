@@ -714,6 +714,7 @@ GameObject:
   - component: {fileID: 273505512}
   - component: {fileID: 273505513}
   - component: {fileID: 273505514}
+  - component: {fileID: 273505515}
   m_Layer: 0
   m_Name: Triangle_0
   m_TagString: Untagged
@@ -872,6 +873,39 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 1
+--- !u!114 &273505515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273505510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &314861011
 GameObject:
   m_ObjectHideFlags: 0
@@ -3522,7 +3556,7 @@ HingeJoint2D:
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
-    m_MotorSpeed: 180
+    m_MotorSpeed: 200
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
@@ -3962,6 +3996,7 @@ GameObject:
   - component: {fileID: 980781222}
   - component: {fileID: 980781221}
   - component: {fileID: 980781220}
+  - component: {fileID: 980781223}
   m_Layer: 0
   m_Name: Square_2
   m_TagString: Untagged
@@ -4116,6 +4151,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &980781223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980781218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 100
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &982883082
 GameObject:
   m_ObjectHideFlags: 0
@@ -5203,6 +5271,7 @@ GameObject:
   - component: {fileID: 1133961729}
   - component: {fileID: 1133961730}
   - component: {fileID: 1133961731}
+  - component: {fileID: 1133961732}
   m_Layer: 0
   m_Name: Triangle_1
   m_TagString: Untagged
@@ -5361,6 +5430,39 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 1
+--- !u!114 &1133961732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133961727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1159587088
 GameObject:
   m_ObjectHideFlags: 0
@@ -5718,6 +5820,7 @@ GameObject:
   - component: {fileID: 1222473918}
   - component: {fileID: 1222473917}
   - component: {fileID: 1222473916}
+  - component: {fileID: 1222473919}
   m_Layer: 0
   m_Name: Triangle_3
   m_TagString: Untagged
@@ -5876,6 +5979,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1222473919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222473914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1236056995
 GameObject:
   m_ObjectHideFlags: 0
@@ -6053,6 +6189,8 @@ GameObject:
   - component: {fileID: 1253815654}
   - component: {fileID: 1253815655}
   - component: {fileID: 1253815656}
+  - component: {fileID: 1253815657}
+  - component: {fileID: 1253815658}
   m_Layer: 0
   m_Name: Isometric Diamond
   m_TagString: Untagged
@@ -6161,6 +6299,90 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1253815657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253815653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 500
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!60 &1253815658
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253815653}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.5}
+    newSize: {x: 1, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.25}
+      - {x: -0.5, y: 0}
+      - {x: 0, y: -0.25}
+      - {x: 0.5, y: 0}
+  m_UseDelaunayMesh: 1
 --- !u!1 &1330833788
 GameObject:
   m_ObjectHideFlags: 0
@@ -6173,6 +6395,7 @@ GameObject:
   - component: {fileID: 1330833792}
   - component: {fileID: 1330833791}
   - component: {fileID: 1330833790}
+  - component: {fileID: 1330833793}
   m_Layer: 0
   m_Name: Square_0
   m_TagString: Untagged
@@ -6327,6 +6550,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1330833793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330833788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 100
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1362002090
 GameObject:
   m_ObjectHideFlags: 0
@@ -6532,7 +6788,7 @@ HingeJoint2D:
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
-    m_MotorSpeed: -180
+    m_MotorSpeed: -200
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
@@ -6771,6 +7027,7 @@ GameObject:
   - component: {fileID: 1429085568}
   - component: {fileID: 1429085567}
   - component: {fileID: 1429085566}
+  - component: {fileID: 1429085569}
   m_Layer: 0
   m_Name: Triangle_6
   m_TagString: Untagged
@@ -6929,6 +7186,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1429085569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429085564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1466915647
 GameObject:
   m_ObjectHideFlags: 0
@@ -7330,7 +7620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86f38438c5e57e4986fbdabfa9f8ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_GameplayCanvas
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 419399846}
+  manager: {fileID: 2064279874}
 --- !u!114 &1570696436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8465,6 +8756,7 @@ GameObject:
   - component: {fileID: 1707504034}
   - component: {fileID: 1707504033}
   - component: {fileID: 1707504032}
+  - component: {fileID: 1707504035}
   m_Layer: 0
   m_Name: Triangle_4
   m_TagString: Untagged
@@ -8623,6 +8915,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1707504035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707504030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1725999341
 GameObject:
   m_ObjectHideFlags: 0
@@ -8967,6 +9292,7 @@ GameObject:
   - component: {fileID: 1827230967}
   - component: {fileID: 1827230966}
   - component: {fileID: 1827230965}
+  - component: {fileID: 1827230968}
   m_Layer: 0
   m_Name: Square_1
   m_TagString: Untagged
@@ -9121,6 +9447,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1827230968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827230963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 100
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1831792249
 GameObject:
   m_ObjectHideFlags: 0
@@ -9455,6 +9814,7 @@ GameObject:
   - component: {fileID: 1841121572}
   - component: {fileID: 1841121571}
   - component: {fileID: 1841121570}
+  - component: {fileID: 1841121573}
   m_Layer: 0
   m_Name: Triangle_2
   m_TagString: Untagged
@@ -9613,6 +9973,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1841121573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841121568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1848634028
 GameObject:
   m_ObjectHideFlags: 0
@@ -9957,6 +10350,7 @@ GameObject:
   - component: {fileID: 1879372666}
   - component: {fileID: 1879372665}
   - component: {fileID: 1879372664}
+  - component: {fileID: 1879372667}
   m_Layer: 0
   m_Name: Triangle_5
   m_TagString: Untagged
@@ -10115,6 +10509,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1879372667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879372662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341d358125ef794aa58222a0ca97375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::C_SimpleTrigger
+  triggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEnterEvent2D:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064279874}
+        m_TargetAssemblyTypeName: M_PinballManager, Assembly-CSharp
+        m_MethodName: UpdateCounter
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 200
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1893137222
 GameObject:
   m_ObjectHideFlags: 0
@@ -10656,6 +11083,7 @@ MonoBehaviour:
   rightMotor: {fileID: 1403068798}
   leftMotor: {fileID: 884043375}
   slider: {fileID: 1579309747}
+  gameplayCanvas: {fileID: 1570696435}
 --- !u!1 &2074175486
 GameObject:
   m_ObjectHideFlags: 0

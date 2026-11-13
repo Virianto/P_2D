@@ -1,13 +1,17 @@
 using UnityEngine;
+using Code.Utils;
+using System;
 
 /// <summary>
 /// Manager de todas las funcionalidades del pinball
 /// </summary>
-public class M_PinballManager : MonoBehaviour
+public class M_PinballManager : Singleton<M_PinballManager>
 {
 
     #region ATTRIBUTES
 
+
+    public event Action<int> OnScoredPoint;
 
     [Header("EDITABLE VALUES")]
     [SerializeField]
@@ -26,6 +30,11 @@ public class M_PinballManager : MonoBehaviour
     public B_ShovelMotor rightMotor;
     public B_ShovelMotor leftMotor;
     public B_SliderJoint slider;
+
+    [SerializeField]
+    UI_GameplayCanvas gameplayCanvas;
+
+
     #endregion
 
 
@@ -48,5 +57,12 @@ public class M_PinballManager : MonoBehaviour
         }
     }
 
+
+    public void UpdateCounter(int amount)
+    {
+        score += amount;
+        OnScoredPoint?.Invoke(score);
+    }
     #endregion
 }
+
