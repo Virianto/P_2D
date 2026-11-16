@@ -1,0 +1,28 @@
+using UnityEngine;
+
+
+/// <summary>
+/// Aquí va el enunciado del propósito de esta clase
+/// </summary>
+public class B_Life : MonoBehaviour
+{
+    #region ATTRIBUTES
+
+    [SerializeField]
+    M_PinballGameManager myManager;
+
+    #endregion
+
+
+
+
+
+    #region METHODS
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        myManager.LifeDown();
+    }
+
+    #endregion
+}
