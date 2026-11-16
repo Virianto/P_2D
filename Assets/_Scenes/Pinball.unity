@@ -7188,14 +7188,14 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_ForceMagnitude: -100
+  m_ForceMagnitude: -1000
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
   m_ForceTarget: 0
   m_ForceMode: 0
-  m_LinearDamping: 0.33
-  m_AngularDamping: 0.36
+  m_LinearDamping: 0
+  m_AngularDamping: 0
 --- !u!1 &1285731083
 GameObject:
   m_ObjectHideFlags: 0
