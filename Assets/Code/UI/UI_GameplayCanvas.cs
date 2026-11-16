@@ -12,10 +12,12 @@ public class UI_GameplayCanvas : MonoBehaviour
 
     [SerializeField]
     TMP_Text scoreText;
+    
+    [SerializeField]
+    TMP_Text lifeText;
 
     public M_PinballManager manager;
 
-    int newScore;
     #endregion
 
     #region METHODS
@@ -24,15 +26,21 @@ public class UI_GameplayCanvas : MonoBehaviour
     void Start()
     { 
         scoreText.text = (manager.score.ToString());
+        lifeText.text = manager.totalLifePoints.ToString();
+        M_PinballManager.Instance.OnScoredPoint += UpdateScoreText;
+        M_PinballManager.Instance.OnUpdatedLife += UpdateLifeText;
+        
     }
 
-    void Update()
+    void UpdateScoreText (int score)
     {
-        manager.score = newScore;
-        M_PinballManager.Instance.UpdateCounter(newScore);
-        scoreText.text = newScore.ToString();
+        scoreText.text = score.ToString();
     }
-   
+
+    void UpdateLifeText (int life)
+    {
+        lifeText.text = life.ToString();
+    }
     #endregion
 	
 }

@@ -18,14 +18,17 @@ public class B_ShovelMotor : MonoBehaviour
     public void ActivateHingeMotor()
     {
         StartCoroutine(ActivateMotor());
+        
+
     }
 
     IEnumerator ActivateMotor()
-    {       
+    {
         hinge = GetComponent<HingeJoint2D>();
         hinge.useMotor = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         hinge.useMotor = false;
+
     }
     #endregion
 }
