@@ -56,7 +56,7 @@ public class M_Spawner : MonoBehaviour
     {
         C_Ball newBall = Instantiate(ballPrefab).GetComponent<C_Ball>();
 
-        //allInstantiatedBallsList.Add(newBall);
+        allInstantiatedBallsList.Add();
         newBall.InitializeBall(this, newPosition, Random.value * 5);
     }
 
