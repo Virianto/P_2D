@@ -934,6 +934,40 @@ MonoBehaviour:
   collisionExitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &279698592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 279698593}
+  m_Layer: 0
+  m_Name: PINBALL COMPONENTS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &279698593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279698592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1733182263}
+  - {fileID: 726784984}
+  - {fileID: 529372852}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &304915808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,12 +2070,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529372850}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5, y: -8.5, z: 0}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 279698593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &529372853
 Rigidbody2D:
@@ -3084,12 +3118,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726784980}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.92387956, w: 0.38268343}
+  m_LocalRotation: {x: -0, y: -0, z: 0.92387956, w: 0.38268343}
   m_LocalPosition: {x: 1.3397356, y: -8.139555, z: 0}
-  m_LocalScale: {x: 0.1, y: 1.8, z: 1}
+  m_LocalScale: {x: 0.1, y: 1.7999998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 279698593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 135}
 --- !u!61 &726784985
 BoxCollider2D:
@@ -4144,7 +4178,7 @@ HingeJoint2D:
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 180
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 15000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
@@ -7401,8 +7435,8 @@ HingeJoint2D:
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
-    m_MotorSpeed: -200
-    m_MaximumMotorForce: 10000
+    m_MotorSpeed: -180
+    m_MaximumMotorForce: 15000
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
@@ -10020,12 +10054,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733182259}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -1.3397356, y: -8.139555, z: 0}
-  m_LocalScale: {x: 0.1, y: 1.8, z: 1}
+  m_LocalScale: {x: 0.10000001, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 279698593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!61 &1733182264
 BoxCollider2D:
@@ -12048,8 +12082,6 @@ SceneRoots:
   - {fileID: 1203590683}
   - {fileID: 382414662}
   - {fileID: 1466915648}
-  - {fileID: 1733182263}
-  - {fileID: 726784984}
   - {fileID: 544367734}
   - {fileID: 1570696439}
-  - {fileID: 529372852}
+  - {fileID: 279698593}

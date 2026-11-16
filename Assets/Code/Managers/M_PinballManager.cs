@@ -42,11 +42,11 @@ public class M_PinballManager : Singleton<M_PinballManager>
 
     private void Update()
     {
-        //if(totalLifePoints == 0)
-        //{
-        //    inputManagerGameObject.SetActive(false);
-        //    Debug.Log("Has perdido el juego");
-        //}
+        if (totalLifePoints == 0)
+        {
+            inputManagerGameObject.SetActive(false);
+            Debug.Log("Has perdido el juego");
+        }
     }
     public void UpdateLifePoints(int amount)
     {
