@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8750952739754199910}
   - component: {fileID: 3788539158787443600}
   - component: {fileID: 3252224563428969275}
+  - component: {fileID: 5069424299227688555}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: NewBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,3 +157,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5069424299227688555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6257258946067511599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc87ded935c01f428c52c186cde5a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::B_Ball

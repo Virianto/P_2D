@@ -1,3 +1,6 @@
+
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +11,7 @@ public class M_PinballBallsManager : MonoBehaviour
 
     #region ATTRIBUTES
 
-
+    public List<B_Ball> allBallsList = new();
     [SerializeField]
     GameObject ballPrefab;
 
@@ -17,6 +20,7 @@ public class M_PinballBallsManager : MonoBehaviour
     public int spawnNewBallPoints = 50;
 
     int currentPoints = 0;
+    int t = 0;
 
 
     #endregion
@@ -30,12 +34,30 @@ public class M_PinballBallsManager : MonoBehaviour
     }
     void UpdateScore(int score)
     {
-        currentPoints =( currentPoints + score) % spawnNewBallPoints;
-        if (currentPoints %1 == 0)
+        currentPoints = score - spawnNewBallPoints*t;
+        if (currentPoints >= spawnNewBallPoints)
         {
-            Instantiate(ballPrefab);
+            t++;
+            GenerateNewBall();  
         }
     }
+
+
+    void GenerateNewBall()
+    {
+        B_Ball newBall = Instantiate(ballPrefab).GetComponent<B_Ball>();
+        allBallsList.Add(newBall);
+        newBall.InitializeBall(this);
+
+    }
+    public void FinishBall(B_Ball ball)
+    {
+        allBallsList.Remove(ball);
+        Destroy(ball.gameObject);
+    }
+    
+
+    
 
 
     #endregion
