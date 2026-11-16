@@ -8,10 +8,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Walls
+  - 
   - 
   - 
   - 
@@ -38,17 +38,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Backround
-    uniqueID: 3756452557
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Dynamic
-    uniqueID: 1221537011
+  - name: Background
+    uniqueID: 2676114733
     locked: 0
-  - name: Enviroment
-    uniqueID: 3796205661
+  - name: Environment
+    uniqueID: 942587465
+    locked: 0
+  - name: Dynamic
+    uniqueID: 2144650943
     locked: 0
   m_RenderingLayers:
   - Default
