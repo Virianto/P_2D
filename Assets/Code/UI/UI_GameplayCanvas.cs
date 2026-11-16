@@ -16,6 +16,9 @@ public class UI_GameplayCanvas : MonoBehaviour
     [SerializeField]
     TMP_Text lifeText;
 
+    [SerializeField]
+    GameObject gameOverPanel;
+
     public M_PinballManager manager;
 
     #endregion
@@ -40,6 +43,11 @@ public class UI_GameplayCanvas : MonoBehaviour
     void UpdateLifeText (int life)
     {
         lifeText.text = life.ToString();
+    }
+
+    public void SetGameOverText()
+    {
+        gameOverPanel.SetActive(true);
     }
     #endregion
 	

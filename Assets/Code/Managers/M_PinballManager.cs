@@ -46,6 +46,7 @@ public class M_PinballManager : Singleton<M_PinballManager>
         {
             inputManagerGameObject.SetActive(false);
             Debug.Log("Has perdido el juego");
+            gameplayCanvas.SetGameOverText();
         }
     }
     public void UpdateLifePoints(int amount)
