@@ -1,23 +1,28 @@
 using UnityEngine;
 
-/// <summary>
-/// Propósito de esta clase
-/// </summary>
 public class B_Palas : MonoBehaviour
 {
     #region ATTRIBUTES
-    [SerializeField] KeyCode rightKey=KeyCode.L;
+
+    [SerializeField] KeyCode key;
+    [SerializeField] HingeJoint2D anchorHingeJoint;
+
     #endregion
 
     #region METHODS
-    void Update() {
-        if (Input.GetKeyDown(rightKey))
+
+    void Update()
+    {
+        if (Input.GetKeyDown(key))
         {
-            gameObject.GetComponent<HingeJoint2D>().enabled = true;
+            anchorHingeJoint.useMotor = true;
+            Debug.Log("MOTOR ON: " + anchorHingeJoint.useMotor);
         }
-        if (!Input.GetKeyDown(rightKey))
+
+        if (Input.GetKeyUp(key))
         {
-            gameObject.GetComponent<HingeJoint2D>().enabled = false;
+            anchorHingeJoint.useMotor = false;
+            Debug.Log("MOTOR OFF: " + anchorHingeJoint.useMotor);
         }
     }
 
