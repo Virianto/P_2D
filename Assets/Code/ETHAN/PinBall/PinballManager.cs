@@ -27,11 +27,11 @@ public class PinballManager : MonoBehaviour
             normalHUD.SetActive(false);
             gameOverHUD.SetActive(true);
         }
-        else if (lifePoints <= 0)
-        {
-            normalHUD.SetActive(false);
-            gameOverHUD.SetActive(true);
-        }
+        //else if (lifePoints <= 0)
+        //{
+        //    normalHUD.SetActive(false);
+        //    gameOverHUD.SetActive(true);
+        //}
     }
     public void LifeLeft()
     {
