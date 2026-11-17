@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 
 /// <summary>
@@ -33,7 +34,14 @@ public class M_PinballGameManager : MonoBehaviour
     [Range(0, 3)]
     int lifesCounter = 3;
 
-    int currentLifes;
+    [SerializeField]
+    GameObject ballPrefab;
+
+    int activeBalls = 0;
+
+    int pointsForNewBall = 100;
+
+    Vector2 ballPosition = new Vector2(8.85f, -4);
 
     #endregion
 
@@ -42,9 +50,10 @@ public class M_PinballGameManager : MonoBehaviour
 
 
     #region METHODS
+
     private void Start()
     {
-        currentLifes = lifesCounter;
+        GenerateNewBall();
     }
 
     private void Update()
@@ -81,18 +90,39 @@ public class M_PinballGameManager : MonoBehaviour
     {
         totalPoints += 5;
         pinballCanvas.UpdatePointsText(totalPoints);
+        HundredPoints();
     }
 
     public void BlueZumperPoints()
     {
         totalPoints += 10;
         pinballCanvas.UpdatePointsText(totalPoints);
+        HundredPoints();
     }
 
     public void LifeDown()
     {
         lifesCounter -= 1;
-        pinballCanvas.UpdateLifesImage(currentLifes);
+        pinballCanvas.UpdateLifesImage(lifesCounter);
+    }
+
+    public void GenerateNewBall()
+    {
+            Instantiate(ballPrefab, ballPosition, Quaternion.identity);
+        activeBalls ++;
+    }
+
+    public void HundredPoints()
+    {
+        if (totalPoints >= pointsForNewBall)
+        {
+            if (activeBalls < 3)
+            {
+                GenerateNewBall();
+            }
+
+            pointsForNewBall += 100;
+        }
     }
 
     #endregion

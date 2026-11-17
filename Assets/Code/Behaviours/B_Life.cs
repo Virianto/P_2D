@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Aquí va el enunciado del propósito de esta clase
+/// Si la bola cae a la zona de abajo restamos una vida
 /// </summary>
 public class B_Life : MonoBehaviour
 {

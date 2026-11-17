@@ -36,18 +36,17 @@ public class UI_PinballCanvas : MonoBehaviour
         pointsCounterText.text = string.Format("{00}", totalPoints);
     }
 
-    public void UpdateLifesImage(int currentLifes)
+    public void UpdateLifesImage(int lifesCounter)
     {
-        if (currentLifes == 2)
+        if (lifesCounter == 2)
         {
-            Debug.Log("jhfal");
-           // life3.gameObject.SetActive(false);
+            life3.gameObject.SetActive(false);
         }
-        if (currentLifes == 1)
+        if (lifesCounter == 1)
         {
             life2.gameObject.SetActive(false);
         }
-        if (currentLifes == 0)
+        if (lifesCounter == 0)
         {
             life1.gameObject.SetActive(false);
         }
