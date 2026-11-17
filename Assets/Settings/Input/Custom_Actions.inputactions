@@ -1,0 +1,83 @@
+{
+    "version": 1,
+    "name": "Custom_Actions",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "ddf6d07c-fe0a-467b-b584-a2f7f9f79f68",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "484a2b31-c3c5-4c5f-9b8e-0cfb69f0d31a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "a2533738-5b50-4d19-83da-af4d379155fb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fd6c3e19-8476-4354-91c5-bd412146cd35",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Teclado y Ratón",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e706e29-860a-4368-aec1-458437bb0e3d",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Teclado y Ratón",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Teclado y Ratón",
+            "bindingGroup": "Teclado y Ratón",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Consola",
+            "bindingGroup": "Consola",
+            "devices": [
+                {
+                    "devicePath": "<DualShockGamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

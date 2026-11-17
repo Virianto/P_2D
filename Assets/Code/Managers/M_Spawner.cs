@@ -52,13 +52,13 @@ public class M_Spawner : MonoBehaviour
     //}
 
 
-    public void GenerateNewPrefab(Vector3 newPosition)
-    {
-        C_Ball newBall = Instantiate(ballPrefab).GetComponent<C_Ball>();
+    //public void GenerateNewPrefab(Vector3 newPosition)
+    //{
+    //    C_Ball newBall = Instantiate(ballPrefab).GetComponent<C_Ball>();
 
-        allInstantiatedBallsList.Add();
-        newBall.InitializeBall(this, newPosition, Random.value * 5);
-    }
+    //    allInstantiatedBallsList.Add(newBall);
+    //    newBall.InitializeBall(this, newPosition, Random.value * 5);
+    //}
 
 
     public void FinishBallLifeCycle(M_Game ball)

@@ -41,18 +41,18 @@ public class M_Game : MonoBehaviour
     //    pinball.UpdateCounter(playerPoints.totalPoints);
     //}
 
-    public void ModifyPoints(float amount)
-    {
-        points += amount;
+    //public void ModifyPoints(float amount)
+    //{
+    //    points += amount;
 
-        OnPointsChanged?.Invoke(points);
+    //    OnPointsChanged?.Invoke(points);
 
-        if(points == 50)
-        {
-            spawner.GenerateNewPrefab(Vector3.zero);
-        }
+    //    if(points == 50)
+    //    {
+    //        spawner.GenerateNewPrefab(Vector3.zero);
+    //    }
 
-    }
+    //}
 
     //public void InitializeBall(M_Spawner manager, Vector3 newPosition, float lifeTime)
     //{
