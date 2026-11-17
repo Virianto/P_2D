@@ -11,6 +11,7 @@ public class PinballManager : MonoBehaviour
     public Transform ballSpawnOrigin;
     public GameObject normalHUD;
     public GameObject gameOverHUD;
+    public int lifePoints = 3;
     public int points;
     public int redInnerPoints;
     public int ballInnerPoints;
@@ -26,6 +27,15 @@ public class PinballManager : MonoBehaviour
             normalHUD.SetActive(false);
             gameOverHUD.SetActive(true);
         }
+        else if (lifePoints <= 0)
+        {
+            normalHUD.SetActive(false);
+            gameOverHUD.SetActive(true);
+        }
+    }
+    public void LifeLeft()
+    {
+        lifePoints -= 1;
     }
 
     public void UpdatePoints(int nuevosPuntos)
@@ -53,7 +63,7 @@ public class PinballManager : MonoBehaviour
     IEnumerator RedEffector()
     {
         redEffectorGO.SetActive(true);
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
         redEffectorGO.SetActive(false);
         redInnerPoints = 0;
     }
