@@ -25,9 +25,27 @@ public class B_CapsulePlayer : MonoBehaviour
     [Range(1, 5)]
     float dashForce = 3;
 
+    [SerializeField]
+    [Range(1, 20)]
+    float moveSpeed = 3;
+
+    float movementValue;
+
     #endregion
 
     #region METHODS
+
+    void OnMove(InputValue value)
+    {
+        // Introducir información de Input en la variable movementValue
+        movementValue = value.Get<float>();
+    }
+
+    void FixedUpdate()
+    {
+        //rb_2D.MovePosition(rb_2D.position + 
+            //(rb_2D.position * movementValue * moveSpeed * Time.fixedDeltaTime));
+    }
 
     void OnJump()
     {
