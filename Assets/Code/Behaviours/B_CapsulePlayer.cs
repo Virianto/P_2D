@@ -42,6 +42,8 @@ public class B_CapsulePlayer : MonoBehaviour
 
     bool isDoubleJumping = false;
 
+    GameObject player;
+
     #endregion
 
 
@@ -49,13 +51,17 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (facingDirection == 1)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        if (facingDirection == -1)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
         if (!isDashing)
         {
-            playerRigidbody.linearVelocityX = movementValue * moveSpeed;
-            if(facingDirection == 1)
-            {
-                Rotate rotation = transform.rotation;
-            }
+            playerRigidbody.linearVelocityX = movementValue * moveSpeed;        
         }
         
     }
