@@ -14,6 +14,8 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [Header("External references")]
 
+    M_DungeonManager dungeonManager;
+
     [SerializeField]
     Rigidbody2D rb_2D;
 
@@ -21,6 +23,8 @@ public class B_CapsulePlayer : MonoBehaviour
     M_SwingPoints swingsPointsManager;
 
     [Header("Editable values")]
+
+    public int lifes = 3;
 
     [SerializeField]
     [Range(1, 15)]
@@ -33,6 +37,9 @@ public class B_CapsulePlayer : MonoBehaviour
     [SerializeField]
     [Range(1, 15)]
     float moveSpeed = 5;
+
+    [SerializeField]
+    AudioSource jump;
 
     float movementValue;
 
@@ -62,14 +69,15 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnJump()
     {
         // Acceder al componente Rigidbody2D a través de la variable y modificar su velocidad vertical
-
         if (isGrounded)
         {
             rb_2D.linearVelocityY = jumpForce;
+            jump.Play();
         }
         else if (!isDoubleJumping)
         {
             rb_2D.linearVelocityY = jumpForce;
+            jump.Play();
 
             isDoubleJumping = true;
         }
@@ -81,6 +89,21 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             StartCoroutine(DashRoutine());
         }
+    }
+
+    IEnumerator DashRoutine()
+    {
+        // Empujar al jugador con la fuerza indicada
+        rb_2D.linearVelocityX = dashForce * facingDirection;
+
+        // Modificar el boolenao de estado
+        isDashing = true;
+
+        // Esperar un tiempo
+        yield return new WaitForSeconds(1);
+
+        // Modificar el booleano de estado
+        isDashing = false;
     }
 
     void OnMove(InputValue value)
@@ -123,21 +146,6 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
         }
-    }
-
-    IEnumerator DashRoutine()
-    {
-        // Empujar al jugador con la fuerza indicada
-        rb_2D.linearVelocityX = dashForce * facingDirection;
-
-        // Modificar el boolenao de estado
-        isDashing = true;
-
-        // Esperar un tiempo
-        yield return new WaitForSeconds(1);
-
-        // Modificar el booleano de estado
-        isDashing = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
