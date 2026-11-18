@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// X IMPLEMENTAR DIRECCIÓN 
 /// X ARREGLAR EL DASH
 /// X IMPLEMENTAR DETECCIÓN DE SUELO
 /// X IMPLEMENTAR DOBLE SALTO
+/// X IMPLEMENTAR AGACHARSE
 /// * IMPLEMENTAR BALANCEO
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
@@ -40,6 +42,7 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
+    bool isCrouching = false;
 
     #endregion
 
@@ -53,7 +56,8 @@ public class B_CapsulePlayer : MonoBehaviour
         if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
-        }                
+        }
+        
     }
 
     void FixedUpdate()
@@ -64,7 +68,7 @@ public class B_CapsulePlayer : MonoBehaviour
         }        
     }
 
-    void OnJump()
+    void OnJump(InputValue value)
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
         if (isGrounded)
@@ -76,6 +80,8 @@ public class B_CapsulePlayer : MonoBehaviour
             rb_2D.linearVelocityY = jumpForce;
             isDoubleJumping = true; 
         }
+
+        Debug.Log(value.isPressed);
     }
 
     void OnDash()
@@ -96,6 +102,18 @@ public class B_CapsulePlayer : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // Modificar el booleano de estado
         isDashing = false;
+    }
+
+    void OnCrouch(InputValue value)
+    {
+        isCrouching = value.isPressed;
+
+        Vector3 newLocalScale = new Vector3(
+            transform.localScale.x,
+            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+            transform.localScale.z);
+
+        transform.localScale = newLocalScale;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
