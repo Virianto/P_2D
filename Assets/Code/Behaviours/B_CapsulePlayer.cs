@@ -42,6 +42,8 @@ public class B_CapsulePlayer : MonoBehaviour
 
     bool isDoubleJumping = false;
 
+    bool isCrouching = false;
+
     GameObject player;
 
     #endregion
@@ -63,7 +65,17 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             playerRigidbody.linearVelocityX = movementValue * moveSpeed;        
         }
-        
+        if (isCrouching)
+        {
+            if (facingDirection == 1)
+            {
+                transform.localScale = new Vector3(1f, 0.5f, 1f);
+            }
+            if (facingDirection == -1)
+            {
+                transform.localScale = new Vector3(-1f, 0.5f, 1f);
+            }
+        }
     }
 
     void OnJump()
@@ -95,6 +107,14 @@ public class B_CapsulePlayer : MonoBehaviour
         facingDirection = movementValue >= 0 ? 1 : -1;    
     }
 
+    void OnCrouch(InputValue value)
+    {
+        isCrouching = value.isPressed;
+        Vector3 newPlayerScale = new Vector3(transform.localScale.x, isCrouching ? 0.5f : 1f, transform.localScale.z);
+
+        transform.localScale = newPlayerScale;
+    }
+
     IEnumerator DashRoutine()
     {
         playerRigidbody.linearVelocityX = dashForce * facingDirection;
@@ -122,5 +142,6 @@ public class B_CapsulePlayer : MonoBehaviour
         }
         
     }
+
     #endregion
 }
