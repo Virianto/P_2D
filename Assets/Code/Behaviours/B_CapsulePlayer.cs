@@ -49,6 +49,8 @@ public class B_CapsulePlayer : MonoBehaviour
 
     bool isCrouching = false;
 
+    bool isSwinging = false;
+
     GameObject player;
 
     #endregion
@@ -69,6 +71,10 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing)
         {
             playerRigidbody.linearVelocityX = movementValue * moveSpeed;        
+        }
+        if (!isSwinging)
+        {
+            playerRigidbody.linearVelocityX = movementValue * moveSpeed;
         }
         if (isCrouching)
         {
@@ -125,10 +131,12 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         if(value.isPressed)        
         {
+            isSwinging = true;
          swingPointsManager.ConnectPlayerToJoint();
         }
         else
         {
+            isSwinging = false;
          swingPointsManager.DisconnectPlayerFromJoint();
         }
     }
