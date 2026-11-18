@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// X IMPLEMENTAR DIRECCIÓN 
 /// X ARREGLAR EL DASH
 /// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// * IMPLEMENTAR DOBLE SALTO
+/// X IMPLEMENTAR DOBLE SALTO
 /// * IMPLEMENTAR BALANCEO
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
