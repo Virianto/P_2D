@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,25 +10,71 @@ public class SimplePlayer2D : MonoBehaviour
     [SerializeField] [Range(1, 5)] float dashForce;
     [SerializeField] [Range(1, 5)] float moveSpeed;
     float movementValue;
+    float facingDirection =  1;
+    float lastFacingDirection = 1;
+    bool isDashing = false;
+    bool isGrounded = false;
+    bool isDoubleJumping = false;
 
-    void ObMove(InputValue value)
+    void OnMove(InputValue value)
     {
         movementValue = value.Get<float>();
+        if (movementValue != 0)
+        {
+            facingDirection = movementValue >= 0 ? 1 : -1;
+        }
     }
 
     void FixedUpdate()
     {
-        rb2D.MovePosition(rb2D.position + (rb2D.position * movementValue * moveSpeed * Time.fixedDeltaTime));
+        if (!isDashing)
+        {
+            rb2D.linearVelocityX = movementValue * moveSpeed;
+        }
     }
 
     void OnJump()
     {
-        rb2D.linearVelocityY = jumpForce;
+        if (isGrounded)
+        {
+            rb2D.linearVelocityY = jumpForce;
+        }
+        else if (!isDoubleJumping)
+        {
+            rb2D.linearVelocityY = jumpForce;
+            isDoubleJumping= true;
+        }
     }
     
     void OnDash()
     {
-        rb2D.linearVelocityX = dashForce;
+        if (!isDashing)
+        {
+            StartCoroutine(DashRoutine());
+        }
     }
 
+    IEnumerator DashRoutine()
+    {
+        rb2D.linearVelocityX = dashForce * facingDirection;
+        isDashing = true;
+        yield return new WaitForSeconds(0.5f);
+        isDashing = false;
+    }
+    void OnTriggerEnter2D (Collider2D other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            isDoubleJumping = false;
+        }
+    }
+    void OnTriggerExit2D (Collider2D other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+    
 }
