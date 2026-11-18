@@ -1,10 +1,13 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// X Conectar esta clase con el componente PlayerInput
-/// X Crear métodos específicos para las acciones del ActionsMap
-/// * Rellenar esos métodos con la funcionalidad correspondiente
+/// X IMPLEMENTAR DIRECCIÓN 
+/// X ARREGLAR EL DASH
+/// * IMPLEMENTAR DETECCIÓN DE SUELO
+/// * IMPLEMENTAR DOBLE SALTO
+/// * IMPLEMENTAR BALANCEO
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -31,6 +34,11 @@ public class B_CapsulePlayer : MonoBehaviour
 
     float movementValue;
 
+    // Variable para controlar hacia dónde enfoco acciones y conectores
+    float facingDirection = 1;
+
+    bool isDashing = false;
+
     #endregion
 
     #region METHODS
@@ -39,11 +47,16 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         // Introducir información de Input en la variable movementValue
         movementValue = value.Get<float>();
+
+        facingDirection = movementValue >= 0 ? 1 : -1;        
     }
 
     void FixedUpdate()
-    {        
-        rb_2D.linearVelocityX = movementValue * moveSpeed;     
+    {
+        if (!isDashing)
+        {
+            rb_2D.linearVelocityX = movementValue * moveSpeed;
+        }        
     }
 
     void OnJump()
@@ -54,8 +67,22 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void OnDash()
     {
-        // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad horizontal
-        rb_2D.linearVelocityX = dashForce;
+        if (!isDashing)
+        {
+            StartCoroutine(DashRoutine());
+        }         
+    }
+
+    IEnumerator DashRoutine()
+    {
+        // Empujar al jugador con la fuerza indicada
+        rb_2D.linearVelocityX = dashForce * facingDirection;
+        // Modificar el booleano de estado
+        isDashing = true;
+        // Esperar un tiempo X
+        yield return new WaitForSeconds(0.5f);
+        // Modificar el booleano de estado
+        isDashing = false;
     }
    
     #endregion
