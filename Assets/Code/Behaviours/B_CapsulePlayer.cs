@@ -25,9 +25,30 @@ public class B_CapsulePlayer : MonoBehaviour
     [Range(1, 5)]
     float dashForce = 3;
 
+    [SerializeField]
+    [Range(1, 20)]
+    float moveSpeed = 3;
+
+    float movementValue;
+
     #endregion
 
     #region METHODS
+
+    void OnMove(InputValue value)
+    {
+        // Introducir información de Input en la variable movementValue
+        movementValue = value.Get<float>();
+    }
+
+    void FixedUpdate()
+    {
+        //Vector2 newPos = new Vector2(rb_2D.position.x + movementValue * moveSpeed * Time.fixedDeltaTime, rb_2D.position.y);
+
+        //rb_2D.MovePosition(newPos);
+        rb_2D.linearVelocityX = movementValue * moveSpeed;
+        Debug.LogFormat("La velocidad en X es: {0}", rb_2D.linearVelocityX);
+    }
 
     void OnJump()
     {
@@ -38,7 +59,7 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnDash()
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad horizontal
-        rb_2D.linearVelocityX = dashForce;
+        rb_2D.linearVelocityX += dashForce;
     }
     private void FixedUpdate()
     {
