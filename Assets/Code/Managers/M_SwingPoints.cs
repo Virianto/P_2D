@@ -60,5 +60,22 @@ public class M_SwingPoints : MonoBehaviour
         }
     }
 
+    public void ConnectPlayerToJoint()
+    {
+        // Si no hay conexión válida posible, no hago nada
+        if (currentClosestJoint != null)
+        {
+            currentClosestJoint.connectedBody = player.GetComponent<Rigidbody2D>();
+        }
+    }
+
+    public void DisconnectPlayerFromJoint()
+    {
+        if (currentClosestJoint != null)
+        {
+            currentClosestJoint.connectedBody = null;
+        }
+    }
+
     #endregion
 }

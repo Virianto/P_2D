@@ -46,6 +46,7 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isGrounded = false;
     bool isDoubleJumping = false;
     bool isCrouching = false;
+    bool isSwinging = false;
 
     #endregion
 
@@ -65,7 +66,7 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
         }        
@@ -83,8 +84,6 @@ public class B_CapsulePlayer : MonoBehaviour
             rb_2D.linearVelocityY = jumpForce;
             isDoubleJumping = true; 
         }
-
-        Debug.Log(value.isPressed);
     }
 
     void OnDash()
@@ -133,6 +132,20 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+        }        
+    }
+
+    void OnSwing(InputValue value)
+    {
+        isSwinging = value.isPressed;
+
+        if (isSwinging)
+        {            
+            swingPointsManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+            swingPointsManager.DisconnectPlayerFromJoint();
         }        
     }
 
