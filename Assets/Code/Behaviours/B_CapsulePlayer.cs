@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// X IMPLEMENTAR DIRECCIÓN 
@@ -10,6 +9,7 @@ using static UnityEngine.Rendering.DebugUI;
 /// X IMPLEMENTAR DOBLE SALTO
 /// X IMPLEMENTAR AGACHARSE
 /// * IMPLEMENTAR BALANCEO
+/// * AÑADIR UNA REFERENCIA AL MANAGER DE PUNTOS DE BALANCEO
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -19,6 +19,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
 
     [Header("EDITABLE VALUES")]
 
