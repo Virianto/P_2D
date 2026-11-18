@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ZumperSuperior
   - Zumper
+  - Ground
   layers:
   - Default
   - TransparentFX
