@@ -12,6 +12,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     #region ATTRIBUTES
 
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
+
     [Header("EXTERNAL REFERENCES")]
     
 
@@ -39,6 +42,8 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
+    bool isCrouching = false;
+    bool isSwinging = false;
 
     #endregion
 
@@ -113,6 +118,22 @@ public class B_CapsulePlayer : MonoBehaviour
 
     }
 
+    void OnCrouch(InputValue value)
+    {
+        // Debug.Log("Me estoy agachando");
+        isCrouching = value.isPressed;
+
+        // Vector3 newLocalScale = new Vector3(transform.localScale.x, isCrouching ? (transform.localScale.y / 2) : transform.localScale.y, transform.localScale.z);
+
+        Vector3 newLocalScale = new Vector3(
+                    transform.localScale.x,
+                    isCrouching ? 0.4f : 0.8f,
+                    transform.localScale.z);
+
+        // transform.localScale.y = isCrouching ? 0.4f : 0.8f;
+        transform.localScale = newLocalScale;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Debug.Log("He detectado algo a los pies");
@@ -130,6 +151,22 @@ public class B_CapsulePlayer : MonoBehaviour
             isGrounded = false;
         }
 
+    }
+
+    void OnSwing(InputValue value)
+    {
+   
+        if (value.isPressed)
+        {
+            isSwinging = true;
+            swingPointsManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+            isSwinging = false;
+            swingPointsManager.DisconectPlayerFromJoint();
+        }
+    
     }
     #endregion
 }
