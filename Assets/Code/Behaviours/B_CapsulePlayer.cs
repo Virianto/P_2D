@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// * Conectar esta clase con el componente PlayerInput
@@ -18,11 +20,11 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [Header("EDITABLE VALUES")]
     [SerializeField]
-    [Range(1, 15)]
+    [Range(1, 30)]
     float jumpForce = 2;
 
     [SerializeField]
-    [Range(1, 5)]
+    [Range(1, 30)]
     float dashForce = 3;
 
     [SerializeField]
@@ -32,30 +34,87 @@ public class B_CapsulePlayer : MonoBehaviour
 
     float movementValue;
 
+    float facingDirection = 1;
+
+    bool isDashing = false;
+
+    bool isGrounded = false;
+
+    bool isDoubleJumping = false;
+
     #endregion
 
 
     #region METHODS
 
+    void FixedUpdate()
+    {
+        if (!isDashing)
+        {
+            playerRigidbody.linearVelocityX = movementValue * moveSpeed;
+            if(facingDirection == 1)
+            {
+                Rotate rotation = transform.rotation;
+            }
+        }
+        
+    }
 
     void OnJump()
     {
-        playerRigidbody.linearVelocityY = jumpForce;
+        if (isGrounded)
+        {
+            playerRigidbody.linearVelocityY = jumpForce;
+        }
+        else if (!isDoubleJumping)
+        {
+            playerRigidbody.linearVelocityY = jumpForce;
+            isDoubleJumping = true;
+        }
+        
     }
 
     void OnDash()
     {
-        playerRigidbody.linearVelocityX = dashForce; 
+        if (!isDashing)
+        {
+            StartCoroutine(DashRoutine());
+        }
+        
     }
 
     void OnMove(InputValue value)
     {
         movementValue = value.Get<float>();
+        facingDirection = movementValue >= 0 ? 1 : -1;    
     }
 
-    void FixedUpdate()
+    IEnumerator DashRoutine()
     {
-        //playerRigidbody.MovePosition(playerRigidbody.position + (playerRigidbody.position * movementValue *  moveSpeed * Time.fixedDeltaTime));    
+        playerRigidbody.linearVelocityX = dashForce * facingDirection;
+        isDashing = true;
+        yield return new WaitForSeconds(0.5f);
+        isDashing = false;
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            isDoubleJumping = false;
+        }
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+        
     }
     #endregion
 }

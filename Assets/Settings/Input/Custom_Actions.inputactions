@@ -26,12 +26,12 @@
                 },
                 {
                     "name": "Move",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "d80a523c-ac4b-46c8-bc07-847cf48a2ff0",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -49,7 +49,7 @@
                 {
                     "name": "",
                     "id": "a886b34c-8fa4-4334-a58a-74ca7ca3ae47",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Teclado y Ratón",
