@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,16 +21,24 @@ public class B_CapsulePlayer : MonoBehaviour
     [Header("EDITABLE VALUES")]
 
     [SerializeField]
-    [Range(1, 15)]
+    [Range(1, 20)]
     float jumpForce = 8;
     [SerializeField]
-    [Range(1, 5)]
+    [Range(1, 20)]
     float dashForce = 5;
     [SerializeField]
     [Range(1, 20)]
     float moveSpeed = 3;
 
     float movementValue;
+
+    // Variable para controlar hacia dónde enfoco acciones y conectores
+    float facingDirection = 1;
+    float lastFacingDirection = 1;
+
+    bool isDashing = false;
+    bool isGrounded = false;
+    bool isDoubleJumping = false;
 
     #endregion
 
@@ -40,12 +49,23 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         // Introducir información de Input en la variable movementValue
         movementValue = value.Get<float>();
+
+        // movementValue >= 0 --> es un if
+        // 1 --> resultado si es true
+        // -1 --> resultado si es false
+        if(movementValue != 0)
+        {
+            facingDirection = movementValue >= 0 ? 1 : -1;
+        }
     }
 
     void FixedUpdate()
     {
-        //rb_2D.MovePosition(rb_2D.position + (rb_2D.position * movementValue * moveSpeed * Time.fixedDeltaTime));
-
+        if (!isDashing)
+        {
+            //rb_2D.MovePosition(rb_2D.position + (rb_2D.position * movementValue * moveSpeed * Time.fixedDeltaTime));
+            rb_2D.linearVelocityX = movementValue * moveSpeed;
+        }
     }
 
     void OnJump()
@@ -53,15 +73,63 @@ public class B_CapsulePlayer : MonoBehaviour
         //Debug.Log("He saltado");
 
         // Acceder al componente rigibody2D a través de la varible y modificar su velocidad vertical
-        rb_2D.linearVelocityY = jumpForce;
+        if (isGrounded)
+        {
+            rb_2D.linearVelocityY = jumpForce;
 
+        }
+        else if (!isDoubleJumping)
+        {
+            rb_2D.linearVelocityY = jumpForce;
+            isDoubleJumping= true;
+        }
+        // rb_2D.linearVelocityY = jumpForce;
+        // rb_2D.linearVelocityY = isGrounded ? jumpForce : rb_2D.linearVelocityY;
     }
     void OnDash()
     {
         //Debug.Log("He hecho un dash");
         // Acceder al componente rigibody2D a través de la varible y modificar su velocidad horizontal
-        rb_2D.linearVelocityX = dashForce;  
+        //rb_2D.linearVelocityX = dashForce;  
+        if(!isDashing)
+        {
+            StartCoroutine(DashRoutine());
+        }
     }
 
+    IEnumerator DashRoutine()
+    {
+        // Empujar al jugador con la fuerza indicada
+        rb_2D.linearVelocityX = dashForce * facingDirection;
+
+        // Modificar el booleano de estado
+        isDashing = true;
+
+        // Esperar un tiempo x
+        yield return new WaitForSeconds(0.5f);
+
+        // Modificar el booleano de estado
+        isDashing = false;
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Debug.Log("He detectado algo a los pies");
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            isDoubleJumping = false;
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+
+    }
     #endregion
 }
