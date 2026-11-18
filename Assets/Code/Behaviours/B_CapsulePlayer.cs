@@ -43,8 +43,11 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        //rb_2D.MovePosition(rb_2D.position + 
-            //(rb_2D.position * movementValue * moveSpeed * Time.fixedDeltaTime));
+        //Vector2 newPos = new Vector2(rb_2D.position.x + movementValue * moveSpeed * Time.fixedDeltaTime, rb_2D.position.y);
+
+        //rb_2D.MovePosition(newPos);
+        rb_2D.linearVelocityX = movementValue * moveSpeed;
+        Debug.LogFormat("La velocidad en X es: {0}", rb_2D.linearVelocityX);
     }
 
     void OnJump()
@@ -56,7 +59,7 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnDash()
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad horizontal
-        rb_2D.linearVelocityX = dashForce;
+        rb_2D.linearVelocityX += dashForce;
     }
 
     #endregion
