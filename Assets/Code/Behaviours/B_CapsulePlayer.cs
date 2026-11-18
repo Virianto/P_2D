@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-
 /// <summary>
 /// * Conectar esta clase con el componente PlayerInput
 /// * Crear métodos específicos para las acciones del ActionsMap
-/// * Rellenar estoos métodos con la funcionalidad correspondiente
+/// * Rellenar estos métodos con la funcionalidad correspondiente
+/// 
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -17,6 +16,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D playerRigidbody;
+
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
 
     [Header("EDITABLE VALUES")]
     [SerializeField]
@@ -30,6 +32,9 @@ public class B_CapsulePlayer : MonoBehaviour
     [SerializeField]
     [Range(1, 20)]
     float moveSpeed = 3;
+    [SerializeField]
+    [Range(0, 1)]
+    float crouch = 0.5f;
 
 
     float movementValue;
@@ -69,11 +74,11 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             if (facingDirection == 1)
             {
-                transform.localScale = new Vector3(1f, 0.5f, 1f);
+                transform.localScale = new Vector3(1f, crouch, 1f);
             }
             if (facingDirection == -1)
             {
-                transform.localScale = new Vector3(-1f, 0.5f, 1f);
+                transform.localScale = new Vector3(-1f, crouch, 1f);
             }
         }
     }
@@ -110,11 +115,23 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnCrouch(InputValue value)
     {
         isCrouching = value.isPressed;
-        Vector3 newPlayerScale = new Vector3(transform.localScale.x, isCrouching ? 0.5f : 1f, transform.localScale.z);
+        Vector3 newPlayerScale = new Vector3(transform.localScale.x, isCrouching ? crouch : 1f, transform.localScale.z);
 
         transform.localScale = newPlayerScale;
     }
 
+
+    void OnSwing(InputValue value)
+    {
+        if(value.isPressed)        
+        {
+         swingPointsManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+         swingPointsManager.DisconnectPlayerFromJoint();
+        }
+    }
     IEnumerator DashRoutine()
     {
         playerRigidbody.linearVelocityX = dashForce * facingDirection;
