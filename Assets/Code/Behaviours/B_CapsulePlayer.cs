@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// X IMPLEMENTAR DIRECCIÓN 
 /// X ARREGLAR EL DASH
-/// * IMPLEMENTAR DETECCIÓN DE SUELO
+/// X IMPLEMENTAR DETECCIÓN DE SUELO
 /// * IMPLEMENTAR DOBLE SALTO
 /// * IMPLEMENTAR BALANCEO
 /// </summary>
@@ -21,15 +21,15 @@ public class B_CapsulePlayer : MonoBehaviour
     [Header("EDITABLE VALUES")]
 
     [SerializeField]
-    [Range(1, 15)]
+    [Range(1, 30)]
     float jumpForce = 2;
 
     [SerializeField]
-    [Range(1, 5)]
+    [Range(1, 30)]
     float dashForce = 3;
 
     [SerializeField]
-    [Range(1, 20)]
+    [Range(1, 15)]
     float moveSpeed = 3;
 
     float movementValue;
@@ -38,6 +38,8 @@ public class B_CapsulePlayer : MonoBehaviour
     float facingDirection = 1;
 
     bool isDashing = false;
+    bool isGrounded = false;
+    bool isDoubleJumping = false;
 
     #endregion
 
@@ -48,7 +50,10 @@ public class B_CapsulePlayer : MonoBehaviour
         // Introducir información de Input en la variable movementValue
         movementValue = value.Get<float>();
 
-        facingDirection = movementValue >= 0 ? 1 : -1;        
+        if (movementValue != 0) 
+        {
+            facingDirection = movementValue > 0 ? 1 : -1;
+        }                
     }
 
     void FixedUpdate()
@@ -62,7 +67,15 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnJump()
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
-        rb_2D.linearVelocityY = jumpForce;
+        if (isGrounded)
+        {
+            rb_2D.linearVelocityY = jumpForce;
+        }
+        else if (!isDoubleJumping)
+        {
+            rb_2D.linearVelocityY = jumpForce;
+            isDoubleJumping = true; 
+        }
     }
 
     void OnDash()
@@ -83,6 +96,23 @@ public class B_CapsulePlayer : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // Modificar el booleano de estado
         isDashing = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {     
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            isDoubleJumping = false;
+        }        
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }        
     }
 
     #endregion
