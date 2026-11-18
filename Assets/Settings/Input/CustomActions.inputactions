@@ -1,6 +1,66 @@
 {
-    "version": 0,
+    "version": 1,
     "name": "CustomActions",
-    "maps": [],
-    "controlSchemes": []
+    "maps": [
+        {
+            "name": "GamePlay",
+            "id": "76dbe338-e692-4a4d-9550-a3ecaced9cfa",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "bb011a6e-ddc5-4427-9582-e9e8e34cf50b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "46dadd8e-48e7-4b81-8415-1f5ece9f98c0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "810ff21e-2953-497f-b88e-211b4697ca34",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Teclado y raton",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "324ffae7-d880-497b-a045-f3ca4ff58c64",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Teclado y raton",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Teclado y raton",
+            "bindingGroup": "Teclado y raton",
+            "devices": []
+        },
+        {
+            "name": "consola",
+            "bindingGroup": "consola",
+            "devices": []
+        }
+    ]
 }

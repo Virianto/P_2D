@@ -40,6 +40,10 @@ public class B_CapsulePlayer : MonoBehaviour
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad horizontal
         rb_2D.linearVelocityX = dashForce;
     }
+    private void FixedUpdate()
+    {
+        rb_2D.MovePosition(rb_2D.position + mo)
+    }
 
     #endregion
 }
