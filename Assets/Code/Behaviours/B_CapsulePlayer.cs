@@ -144,6 +144,16 @@ public class B_CapsulePlayer : MonoBehaviour
          swingPointsManager.DisconnectPlayerFromJoint();
         }
     }
+
+    void OnMiddleHit()
+    {
+        StartCoroutine(HitRoutine());
+    }
+
+    void OnHighHit()
+    {
+        //StartCoroutine(HardHitRoutine());
+    }
     IEnumerator DashRoutine()
     {
         playerRigidbody.linearVelocityX = dashForce * facingDirection;
@@ -162,6 +172,18 @@ public class B_CapsulePlayer : MonoBehaviour
         
 
     }
+    IEnumerator HitRoutine()
+    {
+        animController.SetBool("Hit", true);
+        yield return new WaitForSeconds(0.5f);
+        animController.SetBool("Hit", false);
+    }
+    //IEnumerator HardHitRoutine()
+    //{
+    //    animController.SetBool("HardHit", true);
+    //    yield return new WaitForSeconds(0.5f);
+    //    animController.SetBool("HardHit", false);
+    //}
 
     void OnTriggerEnter2D(Collider2D collision)
     {
