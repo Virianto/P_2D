@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,8 +7,10 @@ using UnityEngine.InputSystem;
 /// Conectar esta clase con el componente PlayerInput
 /// Crear métodos específicos para las acciones del ActionsMap
 /// Rellenar esos métodos con la funcionalidad correspondiente
-/// 
 /// Añadir una referencia al manager de puntos de balanceo
+/// 
+/// Crear una referencia al AnimatorController
+/// Vincular variablesde movimientos con parámetros
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -18,6 +21,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     M_SwingPoints swigPointsManager;
+
+    [SerializeField]
+    Animator animController;
 
     [Header("Editable Values")]
     [SerializeField]
@@ -65,7 +71,10 @@ public class B_CapsulePlayer : MonoBehaviour
         if(! isDashing || !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * playerSpeed;
+            animController.SetFloat("horizontalSpeed",Mathf.Abs(rb_2D.linearVelocityX));
         }
+        // Control de vel vertical para modificar animaciones
+        animController.SetFloat("verticalSpeed", rb_2D.linearVelocityY);
     }
 
     void OnJump()
@@ -134,6 +143,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetBool("isGrounded", isGrounded);
         }
     }
 
@@ -143,6 +153,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("isGrounded", isGrounded);
         }
     }
     #endregion
