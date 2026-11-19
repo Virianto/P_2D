@@ -36,7 +36,16 @@
                 {
                     "name": "Crouch",
                     "type": "Button",
-                    "id": "cce1abf5-10d3-4a20-ba8a-017ee4e160a9",
+                    "id": "495926bc-c435-4c9c-b0f6-69008a956f59",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Swing",
+                    "type": "Button",
+                    "id": "e17168ac-1474-4d45-933d-0889cedc64d8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
@@ -145,7 +154,7 @@
                 },
                 {
                     "name": "",
-                    "id": "17a8107b-01cd-4916-a8ba-532451dbfcb9",
+                    "id": "c4f84273-1b2e-4e0e-87eb-1bec47d7047f",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -156,7 +165,7 @@
                 },
                 {
                     "name": "",
-                    "id": "b0938756-3df1-4ba4-abc2-a4f0c8ea5fa9",
+                    "id": "3db221d4-c242-4944-a346-f3c711f46317",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -164,32 +173,15 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "New action map",
-            "id": "cc2e716d-2e16-42b8-8b27-0e6b77e2d5ab",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "7be812f7-7c74-49c3-ba81-1f395856b77d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "97aeb117-936f-428c-8bff-2e424736ca0a",
-                    "path": "",
+                    "id": "7eec3314-3d44-4180-9424-1c95af18a389",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": ";Teclado y Ratón",
+                    "action": "Swing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

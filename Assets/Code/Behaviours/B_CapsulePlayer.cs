@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 /// X IMPLEMENTAR DIRECCIÓN 
 /// X ARREGLAR EL DASH
 /// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// * IMPLEMENTAR DOBLE SALTO
+/// X IMPLEMENTAR DOBLE SALTO
+/// X IMPLEMENTAR AGACHARSE
 /// * IMPLEMENTAR BALANCEO
+/// * AÑADIR UNA REFERENCIA AL MANAGER DE PUNTOS DE BALANCEO
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
 
     [Header("EDITABLE VALUES")]
 
@@ -40,7 +45,8 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
-    bool isCrouching;
+    bool isCrouching = false;
+    bool isSwinging = false;
 
     #endregion
 
@@ -54,18 +60,19 @@ public class B_CapsulePlayer : MonoBehaviour
         if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
-        }                
+        }
+        
     }
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
         }        
     }
 
-    void OnJump()
+    void OnJump(InputValue value)
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
         if (isGrounded)
@@ -87,36 +94,6 @@ public class B_CapsulePlayer : MonoBehaviour
         }         
     }
 
-
-    void OnCrouch(InputValue value)
-    {
-        isCrouching = value.isPressed;
-
-        Vector3 newLocalScale = new Vector3(
-            transform.localScale.x,
-            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
-            transform.localScale.z
-        );
-
-        transform.localScale = newLocalScale;
-
-        void OnCrouch(InputValue value)
-        {
-            isCrouching = value.isPressed;
-
-            Vector3 newLocalScale = new Vector3(
-                transform.localScale.x,
-                isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
-                transform.localScale.z
-            );
-
-            transform.localScale = newLocalScale;
-
-            
-                
-            
-        }
-    }
     IEnumerator DashRoutine()
     {
         // Empujar al jugador con la fuerza indicada
@@ -127,6 +104,18 @@ public class B_CapsulePlayer : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // Modificar el booleano de estado
         isDashing = false;
+    }
+
+    void OnCrouch(InputValue value)
+    {
+        isCrouching = value.isPressed;
+
+        Vector3 newLocalScale = new Vector3(
+            transform.localScale.x,
+            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+            transform.localScale.z);
+
+        transform.localScale = newLocalScale;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -143,6 +132,20 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+        }        
+    }
+
+    void OnSwing(InputValue value)
+    {
+        isSwinging = value.isPressed;
+
+        if (isSwinging)
+        {            
+            swingPointsManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+            swingPointsManager.DisconnectPlayerFromJoint();
         }        
     }
 
