@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 /// <summary>
@@ -19,6 +20,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     M_SwingPoints swingPointsManager;
+
+    [SerializeField]
+    Animator animController;
 
     [Header("EDITABLE VALUES")]
     [SerializeField]
@@ -62,29 +66,29 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         if (facingDirection == 1)
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.localScale = new Vector3(facingDirection, 1f, 1f);
         }
         if (facingDirection == -1)
         {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            transform.localScale = new Vector3(facingDirection, 1f, 1f);
         }
-        if (!isDashing)
-        {
-            playerRigidbody.linearVelocityX = movementValue * moveSpeed;        
-        }
-        if (!isSwinging)
+        if (!isDashing && !isSwinging)
         {
             playerRigidbody.linearVelocityX = movementValue * moveSpeed;
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(playerRigidbody.linearVelocityX));
+            animController.SetBool("Crouched", false);
         }
+        
         if (isCrouching)
         {
+            animController.SetBool("Crouched", true);
             if (facingDirection == 1)
             {
-                transform.localScale = new Vector3(1f, crouch, 1f);
+                transform.localScale = new Vector3(facingDirection, crouch, 1f);
             }
             if (facingDirection == -1)
             {
-                transform.localScale = new Vector3(-1f, crouch, 1f);
+                transform.localScale = new Vector3(facingDirection, crouch, 1f);
             }
         }
     }
@@ -93,11 +97,12 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         if (isGrounded)
         {
-            playerRigidbody.linearVelocityY = jumpForce;
+            StartCoroutine(JumpRoutine());
         }
         else if (!isDoubleJumping)
         {
             playerRigidbody.linearVelocityY = jumpForce;
+            StartCoroutine(JumpRoutine());
             isDoubleJumping = true;
         }
         
@@ -122,7 +127,6 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         isCrouching = value.isPressed;
         Vector3 newPlayerScale = new Vector3(transform.localScale.x, isCrouching ? crouch : 1f, transform.localScale.z);
-
         transform.localScale = newPlayerScale;
     }
 
@@ -132,7 +136,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if(value.isPressed)        
         {
             isSwinging = true;
-         swingPointsManager.ConnectPlayerToJoint();
+         swingPointsManager.ConnectPlayerToJoint();         
         }
         else
         {
@@ -149,12 +153,24 @@ public class B_CapsulePlayer : MonoBehaviour
 
     }
 
+    IEnumerator JumpRoutine()
+    {
+        playerRigidbody.linearVelocityY = jumpForce;
+        animController.SetFloat("VerticalSpeed", playerRigidbody.linearVelocityY);
+        yield return new WaitForSeconds(1);
+        animController.SetFloat("VerticalSpeed", playerRigidbody.linearVelocityY);
+        
+
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground"))
         {
             isGrounded = true;
             isDoubleJumping = false;
+            //animController.SetTrigger("Landing");
+            animController.SetBool("Grounded", isGrounded);
         }
         
     }
@@ -164,6 +180,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("Grounded", isGrounded);
         }
         
     }
