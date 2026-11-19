@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,8 @@ using UnityEngine.InputSystem;
 /// * Crear métodos específicos para las acciones del ActionMap
 /// * Rellenar esos métodos con la funcionalidad correspondiente
 /// * Referenciar al Manager de puntos de balanceo
+/// * Referenciar al AnimatorController
+/// * Vincular variables de movimiento
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -18,6 +21,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    Animator animController;
 
     [SerializeField]
     M_SwingPoints swingsPointsManager;
@@ -145,7 +151,12 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing || !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
+
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));
         }
+
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -157,6 +168,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
             // Modificar un booleano que no permita saltar más
             isDoubleJumping = false;
+
+            // Comunicar al AnimatorController que estamos en el suelo
+            animController.SetBool("IsGrounded", isGrounded);
         }
     }
 
@@ -166,6 +180,9 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             // Modificar un booleano que no permita saltar
             isGrounded = false;
+
+            // Comunicar al AnimatorController que estamos en el suelo
+            animController.SetBool("IsGrounded", isGrounded);
         }    
     }
 
