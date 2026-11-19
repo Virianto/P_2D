@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 /// * IMPLEMENTAR DETECCIÓN DE SUELO
 /// * IMPLEMENTAR DOBLE SALTO
 /// * IMPLEMENTAR BALANCEO
+/// Referencia a AnimatorController
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class B_CapsulePlayer : MonoBehaviour
     Rigidbody2D rb_2D;
     [SerializeField]
     M_SwingPoints swingPointsManager;
+    [SerializeField]
+    Animator animator;
 
     [Header("EDITABLE VALUES")]
 
@@ -67,8 +71,14 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDashing || !isSwinging)
+        if (!isDashing || !isSwinging) 
+        {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
+            animator.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));
+        }
+
+        //Control de velocidad vertical para controlar animaciones
+        animator.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
     }
 
     void OnJump()
@@ -98,10 +108,11 @@ public class B_CapsulePlayer : MonoBehaviour
         isCrouching = input.isPressed;
         Debug.Log("Me estoy agachando");
 
-        Vector3 newPlayerScale = playerScale;
+        //Vector3 newPlayerScale = playerScale;
 
-        newPlayerScale.y = isCrouching ? playerScale.y / 1.5f : playerScale.y;
-        transform.localScale = newPlayerScale;
+        //newPlayerScale.y = isCrouching ? playerScale.y / 1.5f : playerScale.y;
+        //transform.localScale = newPlayerScale;
+        animator.SetBool("IsCrouch", true);
     }
 
     void OnSwing(InputValue input)
@@ -137,6 +148,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             Debug.Log("Detectado suelo");
             isGrounded = true;
+            animator.SetBool("IsGrounded", isGrounded);
             isDoubleJumping = false;
         }
     }
@@ -144,7 +156,10 @@ public class B_CapsulePlayer : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground"))
+        {
             isGrounded = false;
+            animator.SetBool("IsGrounded", isGrounded);
+        }
     }
 
     #endregion

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Flipper1
   - Flipper2
+  - Undefined
+  - Ground
   layers:
   - Default
   - TransparentFX
