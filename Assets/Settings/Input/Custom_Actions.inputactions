@@ -4,12 +4,12 @@
     "maps": [
         {
             "name": "Gameplay",
-            "id": "a6cab9fc-9f1f-4147-a10c-a40e16ba8039",
+            "id": "39473bd8-c114-4c65-aad4-d15003c13ff4",
             "actions": [
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "87c386a7-2954-48f0-9731-2d55a8eb3755",
+                    "id": "60a241a6-3548-4917-9d8b-e2536dec4c61",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -18,7 +18,7 @@
                 {
                     "name": "Dash",
                     "type": "Button",
-                    "id": "e8de145e-fab2-4d05-bb7b-b02d06601ee0",
+                    "id": "69b6cf20-1b21-4d96-8ded-7bee7532b069",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -27,7 +27,7 @@
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "7e630bae-0a09-494d-a535-ee345e6a924b",
+                    "id": "f76c8297-c225-40fb-96cc-df2f4ccd0480",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
@@ -36,7 +36,7 @@
                 {
                     "name": "Crouch",
                     "type": "Button",
-                    "id": "83660bf2-a26b-4d01-997b-5f981575ea9a",
+                    "id": "495926bc-c435-4c9c-b0f6-69008a956f59",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
@@ -45,7 +45,7 @@
                 {
                     "name": "Swing",
                     "type": "Button",
-                    "id": "9c3983d7-0e2b-4e58-9acd-2b33aec270ad",
+                    "id": "e17168ac-1474-4d45-933d-0889cedc64d8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press(behavior=2)",
@@ -55,29 +55,40 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "40fa2171-391a-4cd9-a7f7-7ef7302e5a11",
+                    "id": "8ceeba8f-13cd-47cd-9d6c-1b3102f030c8",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "46da7bb0-7e57-4aed-b0fd-b9a91cb20cc5",
+                    "id": "8f3d7092-edfa-4b8c-ba89-6c904fe4100a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Consola",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9f88944-e95e-46c4-a6c8-7b5478798966",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "1D Axis",
-                    "id": "845daaeb-ab89-4ae2-aba3-a44a77154870",
+                    "id": "9a710b78-7d38-4ac7-a6e9-aaa5755a8eaa",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -88,29 +99,29 @@
                 },
                 {
                     "name": "negative",
-                    "id": "cf37e58a-a450-4646-a12a-bc9ac87f9a89",
-                    "path": "<Keyboard>/a",
+                    "id": "20ee7e18-81af-493d-a649-813e41757323",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "positive",
-                    "id": "b047f458-9f85-499e-8c4d-45017f838f75",
-                    "path": "<Keyboard>/d",
+                    "id": "58c2ec96-c4e4-48ae-9658-febbb0a2a8df",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "1D Axis",
-                    "id": "4a035357-6e83-4608-86e7-b84dc0622038",
+                    "id": "f7e70d88-28af-420b-92c9-f71b41e1b96e",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -121,55 +132,55 @@
                 },
                 {
                     "name": "negative",
-                    "id": "9e619ad7-539a-4c07-97d0-3e53531cf9a9",
-                    "path": "<Keyboard>/leftArrow",
+                    "id": "b0e7a122-17e2-408d-8e55-ebd997cb9e18",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "positive",
-                    "id": "51886b13-c2b7-42c9-9990-764b6738809d",
-                    "path": "<Keyboard>/rightArrow",
+                    "id": "bfc74976-9238-45e1-bc6f-2485d5195612",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "2eb0d99f-25b8-4502-8191-7fbda276fca3",
+                    "id": "c4f84273-1b2e-4e0e-87eb-1bec47d7047f",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "68d847d5-0d14-49c9-a986-d0b0b4f8febc",
+                    "id": "3db221d4-c242-4944-a346-f3c711f46317",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f63c7257-1272-4877-a635-eed2a1761d02",
+                    "id": "7eec3314-3d44-4180-9424-1c95af18a389",
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Teclado Y Ratón",
+                    "groups": ";Teclado y Ratón",
                     "action": "Swing",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -179,8 +190,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "Teclado Y Ratón",
-            "bindingGroup": "Teclado Y Ratón",
+            "name": "Teclado y Ratón",
+            "bindingGroup": "Teclado y Ratón",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",

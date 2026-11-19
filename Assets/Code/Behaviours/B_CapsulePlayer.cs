@@ -6,8 +6,10 @@ using UnityEngine.InputSystem;
 /// X IMPLEMENTAR DIRECCIÓN 
 /// X ARREGLAR EL DASH
 /// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// * IMPLEMENTAR DOBLE SALTO
+/// X IMPLEMENTAR DOBLE SALTO
+/// X IMPLEMENTAR AGACHARSE
 /// * IMPLEMENTAR BALANCEO
+/// * AÑADIR UNA REFERENCIA AL MANAGER DE PUNTOS DE BALANCEO
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -17,7 +19,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
-    [SerializeField] M_SwingPoints swingPointsManager;
+
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
 
     [Header("EDITABLE VALUES")]
 
@@ -41,7 +45,7 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
-    bool isCrouching= false;
+    bool isCrouching = false;
     bool isSwinging = false;
 
     #endregion
@@ -53,21 +57,22 @@ public class B_CapsulePlayer : MonoBehaviour
         // Introducir información de Input en la variable movementValue
         movementValue = value.Get<float>();
 
-        if (movementValue != 0)
+        if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
         }
+        
     }
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
-        }
+        }        
     }
 
-    void OnJump()
+    void OnJump(InputValue value)
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
         if (isGrounded)
@@ -77,7 +82,7 @@ public class B_CapsulePlayer : MonoBehaviour
         else if (!isDoubleJumping)
         {
             rb_2D.linearVelocityY = jumpForce;
-            isDoubleJumping = true;
+            isDoubleJumping = true; 
         }
     }
 
@@ -86,32 +91,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing)
         {
             StartCoroutine(DashRoutine());
-        }
-    }
-
-    void OnCrouch(InputValue value)
-    {
-        isCrouching = value.isPressed;
-        Vector3 newLocalState = new Vector3(
-             transform.localScale.x, 
-             isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
-             transform.localScale.z);
-
-        transform.localScale = newLocalState;
-        Debug.Log(isCrouching);
-    }
-
-    void OnSwing(InputValue value)
-    {
-        if (value.isPressed)
-        {
-            isSwinging = true;
-            swingPointsManager.ConnectPlayerToJoint();
-        } else
-        {
-            isSwinging = false;
-            swingPointsManager.DisconnectPlayerFromJoint();
-        }
+        }         
     }
 
     IEnumerator DashRoutine()
@@ -126,13 +106,25 @@ public class B_CapsulePlayer : MonoBehaviour
         isDashing = false;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnCrouch(InputValue value)
     {
+        isCrouching = value.isPressed;
+
+        Vector3 newLocalScale = new Vector3(
+            transform.localScale.x,
+            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+            transform.localScale.z);
+
+        transform.localScale = newLocalScale;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {     
         if (collision.CompareTag("Ground"))
         {
             isGrounded = true;
             isDoubleJumping = false;
-        }
+        }        
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -140,7 +132,21 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+        }        
+    }
+
+    void OnSwing(InputValue value)
+    {
+        isSwinging = value.isPressed;
+
+        if (isSwinging)
+        {            
+            swingPointsManager.ConnectPlayerToJoint();
         }
+        else
+        {
+            swingPointsManager.DisconnectPlayerFromJoint();
+        }        
     }
 
     #endregion
