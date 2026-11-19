@@ -113,12 +113,14 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         isCrouching = value.isPressed;
 
-        Vector3 newLocalScale = new Vector3(
+        /*Vector3 newLocalScale = new Vector3(
             transform.localScale.x,
             isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
             transform.localScale.z);
 
-        transform.localScale = newLocalScale;
+        transform.localScale = newLocalScale;*/
+
+        animController.SetBool("IsCrouching", isCrouching);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
