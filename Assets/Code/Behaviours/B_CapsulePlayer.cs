@@ -69,7 +69,10 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
             animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));            
-        }        
+        }
+
+        // Control de velocidad vertical para modificar animaciones:
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
     }
 
     void OnJump(InputValue value)
@@ -124,6 +127,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetTrigger("Landing");
         }        
     }
 
