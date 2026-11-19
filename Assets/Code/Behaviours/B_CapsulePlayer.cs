@@ -20,6 +20,8 @@ public class B_CapsulePlayer : MonoBehaviour
     [SerializeField]
     Rigidbody2D rb_2D;
 
+    [SerializeField] Animator animController;
+
     [SerializeField]
     M_SwingPoints swingPointsManager;
 
@@ -60,6 +62,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
+            
         }
         
     }
@@ -69,7 +72,10 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
-        }        
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));
+        }
+        //control de velocidad verticalpara modificar animaciones
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
     }
 
     void OnJump(InputValue value)
@@ -110,12 +116,13 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         isCrouching = value.isPressed;
 
-        Vector3 newLocalScale = new Vector3(
-            transform.localScale.x,
-            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
-            transform.localScale.z);
+        //Vector3 newLocalScale = new Vector3(
+        //    transform.localScale.x,
+        //    isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+        //    transform.localScale.z);
 
-        transform.localScale = newLocalScale;
+        //transform.localScale = newLocalScale;
+        animController.SetBool("isCrouching", isCrouching);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -124,6 +131,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetTrigger("Landing");
         }        
     }
 
