@@ -47,6 +47,10 @@ public class B_CapsulePlayer : MonoBehaviour
     [SerializeField]
     AudioSource jump;
 
+    public AudioSource damage;
+
+    public AudioSource keyCollected;
+
     float movementValue;
 
     // Variable para controlar hacia dónde enfocamos acciones y conectores
