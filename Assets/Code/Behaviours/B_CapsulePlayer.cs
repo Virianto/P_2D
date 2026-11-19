@@ -1,15 +1,11 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// X IMPLEMENTAR DIRECCIÓN 
-/// X ARREGLAR EL DASH
-/// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// X IMPLEMENTAR DOBLE SALTO
-/// X IMPLEMENTAR AGACHARSE
-/// * IMPLEMENTAR BALANCEO
-/// * AÑADIR UNA REFERENCIA AL MANAGER DE PUNTOS DE BALANCEO
+/// * Crear una referencia al AnimatorController
+/// * Vincular variables de movimiento con parámetros del Animator Controller
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -19,6 +15,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    Animator animController;
 
     [SerializeField]
     M_SwingPoints swingPointsManager;
@@ -69,6 +68,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));            
         }        
     }
 
