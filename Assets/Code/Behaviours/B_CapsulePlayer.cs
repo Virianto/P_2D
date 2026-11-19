@@ -40,6 +40,7 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
+    bool isCrouching;
 
     #endregion
 
@@ -86,6 +87,36 @@ public class B_CapsulePlayer : MonoBehaviour
         }         
     }
 
+
+    void OnCrouch(InputValue value)
+    {
+        isCrouching = value.isPressed;
+
+        Vector3 newLocalScale = new Vector3(
+            transform.localScale.x,
+            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+            transform.localScale.z
+        );
+
+        transform.localScale = newLocalScale;
+
+        void OnCrouch(InputValue value)
+        {
+            isCrouching = value.isPressed;
+
+            Vector3 newLocalScale = new Vector3(
+                transform.localScale.x,
+                isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+                transform.localScale.z
+            );
+
+            transform.localScale = newLocalScale;
+
+            
+                
+            
+        }
+    }
     IEnumerator DashRoutine()
     {
         // Empujar al jugador con la fuerza indicada
