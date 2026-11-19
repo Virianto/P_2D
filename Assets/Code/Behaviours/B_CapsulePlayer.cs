@@ -127,7 +127,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
-            animController.SetTrigger("Landing");
+            animController.SetBool("IsGrounded", isGrounded);
         }        
     }
 
@@ -136,6 +136,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }        
     }
 
