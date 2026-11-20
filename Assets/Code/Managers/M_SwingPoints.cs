@@ -2,11 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// X Distancia mínima para activar los springJoints
-/// X Lista con todos los springJoints de la escena
-/// X Calculo constante de cuál es el springJoint más cercano al jugador
-/// X Referencia a mi jugador
-/// * Capacidad de des/conectar jugador al springJoint más cercano si cumple requisitos
+/// 
 /// </summary>
 public class M_SwingPoints : MonoBehaviour
 {
@@ -18,7 +14,7 @@ public class M_SwingPoints : MonoBehaviour
     B_CapsulePlayer player;
 
     [SerializeField]
-    List<SpringJoint2D> allJointsList = new();
+    List<DistanceJoint2D> allJointsList = new();
 
     [Header("EDITABLE VALUES")]
 
@@ -26,7 +22,7 @@ public class M_SwingPoints : MonoBehaviour
     [Range(0, 20)]
     float minDistanceToSwing = 6;
 
-    SpringJoint2D currentClosestJoint;
+    DistanceJoint2D currentClosestJoint;
 
     #endregion
 
