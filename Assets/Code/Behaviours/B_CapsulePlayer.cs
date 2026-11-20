@@ -54,6 +54,8 @@ public class B_CapsulePlayer : MonoBehaviour
 
     bool isSwinging = false;
 
+    float localScaleX;
+
     GameObject player;
 
     #endregion
@@ -61,15 +63,19 @@ public class B_CapsulePlayer : MonoBehaviour
 
     #region METHODS
 
+    private void Awake()
+    {
+        localScaleX = transform.localScale.x;
+    }
     void FixedUpdate()
     {
         if (facingDirection == 1)
         {
-            transform.localScale = new Vector3(facingDirection, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(facingDirection * localScaleX, transform.localScale.y, transform.localScale.z);
         }
         if (facingDirection == -1)
         {
-            transform.localScale = new Vector3(facingDirection, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(facingDirection * localScaleX, transform.localScale.y, transform.localScale.z);
         }
         if (!isDashing && !isSwinging)
         {
@@ -83,11 +89,11 @@ public class B_CapsulePlayer : MonoBehaviour
             animController.SetBool("Crouched", true);
             if (facingDirection == 1)
             {
-                transform.localScale = new Vector3(facingDirection, crouch, transform.localScale.z);
+                transform.localScale = new Vector3(facingDirection * localScaleX, crouch, transform.localScale.z);
             }
             if (facingDirection == -1)
             {
-                transform.localScale = new Vector3(facingDirection, crouch, transform.localScale.z);
+                transform.localScale = new Vector3(facingDirection * localScaleX, crouch, transform.localScale.z);
             }
         }
     }
