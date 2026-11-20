@@ -53,6 +53,8 @@ public class B_CapsulePlayer : MonoBehaviour
 
     float movementValue;
 
+    float originalXScale;
+
     // Variable para controlar hacia dónde enfocamos acciones y conectores
     float facingDirection = 1;
 
@@ -74,17 +76,20 @@ public class B_CapsulePlayer : MonoBehaviour
 
     #region METHODS
 
-
+    private void Awake()
+    {
+        originalXScale = transform.localScale.x;
+    }
 
     void OnJump()
     {
         // Acceder al componente Rigidbody2D a través de la variable y modificar su velocidad vertical
-        if (isGrounded)
+        if (isGrounded && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
             jump.Play();
         }
-        else if (!isDoubleJumping)
+        else if (!isDoubleJumping && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
             jump.Play();
@@ -95,7 +100,7 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void OnDash()
     {
-        if (!isDashing)
+        if (!isDashing && !isCrouching)
         {
             StartCoroutine(DashRoutine());
         }
@@ -124,6 +129,8 @@ public class B_CapsulePlayer : MonoBehaviour
         if (movementValue != 0)
         {
             facingDirection = movementValue > 0 ? 1 : -1;
+
+            transform.localScale = new Vector3(facingDirection, transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -132,8 +139,9 @@ public class B_CapsulePlayer : MonoBehaviour
         isCrouching = value.isPressed;
 
         Vector3 newLocalScale = new Vector3(transform.localScale.x, isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2), transform.localScale.z);
-
         transform.localScale = newLocalScale; 
+
+        animController.SetBool("IsCrouching", isCrouching);
     }
 
     void OnSwing(InputValue value)
@@ -152,7 +160,10 @@ public class B_CapsulePlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDashing || !isSwinging)
+        if (!isDashing && !isSwinging)
+        // !isDashing && !isSwinging -> True cuando los dos booleanos son False
+        // !isDashing || !isSwinging -> True cuando uno o los dos booleanos son False
+
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
 
@@ -160,7 +171,6 @@ public class B_CapsulePlayer : MonoBehaviour
         }
 
         animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
