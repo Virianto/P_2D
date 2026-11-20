@@ -6,14 +6,16 @@ using UnityEngine.InputSystem;
 public class SimplePlayer2D : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb2D;
-    [SerializeField] [Range(1, 5)] float jumpForce;
-    [SerializeField] [Range(1, 5)] float dashForce;
-    [SerializeField] [Range(1, 5)] float moveSpeed;
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] M_EthanSwingPoint swingPointManager;
+    [SerializeField][Range(1, 5)] float jumpForce;
+    [SerializeField][Range(1, 5)] float dashForce;
+    [SerializeField][Range(1, 5)] float moveSpeed;
     float movementValue;
-    float facingDirection =  1;
-    float lastFacingDirection = 1;
+    float facingDirection = 1;
     bool isDashing = false;
     bool isGrounded = false;
+    bool isCrouche = false;
     bool isDoubleJumping = false;
 
     void OnMove(InputValue value)
@@ -21,7 +23,7 @@ public class SimplePlayer2D : MonoBehaviour
         movementValue = value.Get<float>();
         if (movementValue != 0)
         {
-            facingDirection = movementValue >= 0 ? 1 : -1;
+            facingDirection = movementValue > 0 ? 1 : -1;
         }
     }
 
@@ -42,10 +44,10 @@ public class SimplePlayer2D : MonoBehaviour
         else if (!isDoubleJumping)
         {
             rb2D.linearVelocityY = jumpForce;
-            isDoubleJumping= true;
+            isDoubleJumping = true;
         }
     }
-    
+
     void OnDash()
     {
         if (!isDashing)
@@ -60,6 +62,12 @@ public class SimplePlayer2D : MonoBehaviour
         isDashing = true;
         yield return new WaitForSeconds(0.5f);
         isDashing = false;
+    }
+    void OnCrouch(InputValue value)
+    {
+        isCrouche = value.isPressed;
+        Vector3 newLocalSacle = new Vector3(transform.localScale.x, isCrouche ? (transform.localScale.y / 2) : (transform.localScale.y * 2), transform.localScale.z);
+        transform.localScale = newLocalSacle;
     }
     void OnTriggerEnter2D (Collider2D other)
     {
@@ -76,5 +84,18 @@ public class SimplePlayer2D : MonoBehaviour
             isGrounded = false;
         }
     }
-    
+
+    void OnSwing(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            swingPointManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+            swingPointManager.DisconnectPlayerToJoint();
+        }
+        
+    }
+
 }

@@ -16,7 +16,6 @@ TagManager:
   - 
   - 
   - 
-  - Player
   - 
   - 
   - 
@@ -33,7 +32,8 @@ TagManager:
   - 
   - 
   - 
-  - Ground
+  - 
+  - 
   - 
   - 
   - 
