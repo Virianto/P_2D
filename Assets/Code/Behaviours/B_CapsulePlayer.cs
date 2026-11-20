@@ -4,13 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// X IMPLEMENTAR DIRECCIÓN 
-/// X ARREGLAR EL DASH
-/// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// X IMPLEMENTAR DOBLE SALTO
-/// X IMPLEMENTAR AGACHARSE
-/// * IMPLEMENTAR BALANCEO
-/// * AÑADIR UNA REFERENCIA AL MANAGER DE PUNTOS DE BALANCEO
+/// * Crear una referencia al AnimatorController
+/// * Vincular variables de movimiento con parámetros del Animator Controller
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -20,8 +15,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
     [SerializeField]
-    Animator animcontroller;
+    Animator animController;
 
     [SerializeField]
     M_SwingPoints swingPointsManager;
@@ -41,6 +37,7 @@ public class B_CapsulePlayer : MonoBehaviour
     float moveSpeed = 3;
 
     float movementValue;
+    float originalXScale;
 
     // Variable para controlar hacia dónde enfoco acciones y conectores
     float facingDirection = 1;
@@ -51,27 +48,29 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isCrouching = false;
     bool isSwinging = false;
 
-    float originalXScale;
-
     #endregion
 
     #region METHODS
-    private void Awake()
+
+    void Awake()
     {
-        originalXScale =transform.localScale.x;
+        originalXScale = transform.localScale.x;
     }
 
     void OnMove(InputValue value)
     {
         // Introducir información de Input en la variable movementValue
-        movementValue = value.Get<float>();
+        movementValue = value.Get<float>();               
 
-        if (movementValue != 0)
+        if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
-            transform.localScale =new Vector3 (facingDirection, transform.localScale.y, transform.localScale.z);
-        }
 
+            transform.localScale = new Vector3(
+                originalXScale * facingDirection,
+                transform.localScale.y,
+                transform.localScale.z);
+        }        
     }
 
     void FixedUpdate()
@@ -79,9 +78,11 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing && !isSwinging && !isCrouching)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
-            animcontroller.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));            
         }
-        animcontroller.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
+
+        // Control de velocidad vertical para modificar animaciones:
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
     }
 
     void OnJump(InputValue value)
@@ -94,7 +95,7 @@ public class B_CapsulePlayer : MonoBehaviour
         else if (!isDoubleJumping && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
-            isDoubleJumping = true;
+            isDoubleJumping = true; 
         }
     }
 
@@ -103,7 +104,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing && !isCrouching)
         {
             StartCoroutine(DashRoutine());
-        }
+        }         
     }
 
     IEnumerator DashRoutine()
@@ -122,23 +123,17 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         isCrouching = value.isPressed;
 
-        Vector3 newLocalScale = new Vector3(
-            transform.localScale.x,
-            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
-            transform.localScale.z);
-
-        transform.localScale = newLocalScale;
+        animController.SetBool("IsCrouching", isCrouching);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {
+    {     
         if (collision.CompareTag("Ground"))
         {
             isGrounded = true;
             isDoubleJumping = false;
-            //animcontroller.SetTrigger("Landing");
-            animcontroller.SetBool("Grounder", isGrounded);
-        }
+            animController.SetBool("IsGrounded", isGrounded);
+        }        
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -146,8 +141,8 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
-            animcontroller.SetBool("Grounder", isGrounded);
-        }
+            animController.SetBool("IsGrounded", isGrounded);
+        }        
     }
 
     void OnSwing(InputValue value)
@@ -155,13 +150,13 @@ public class B_CapsulePlayer : MonoBehaviour
         isSwinging = value.isPressed;
 
         if (isSwinging)
-        {
+        {            
             swingPointsManager.ConnectPlayerToJoint();
         }
         else
         {
             swingPointsManager.DisconnectPlayerFromJoint();
-        }
+        }        
     }
 
     #endregion
