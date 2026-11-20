@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/LoginScene.unity
+    guid: f90e45a13eea6134e8d6b342cb819aea
+  - enabled: 1
+    path: Assets/_Scenes/LightningPlayerTest_2.unity
+    guid: 069d580088f462b4c8cd8148e12f3f17
   m_configObjects: {}
