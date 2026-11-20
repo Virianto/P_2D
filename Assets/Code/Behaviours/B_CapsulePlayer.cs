@@ -75,7 +75,7 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDashing && !isSwinging)
+        if (!isDashing && !isSwinging && !isCrouching)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
             animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));            
@@ -88,11 +88,11 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnJump(InputValue value)
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
-        if (isGrounded)
+        if (isGrounded && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
         }
-        else if (!isDoubleJumping)
+        else if (!isDoubleJumping && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
             isDoubleJumping = true; 
@@ -101,7 +101,7 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void OnDash()
     {
-        if (!isDashing)
+        if (!isDashing && !isCrouching)
         {
             StartCoroutine(DashRoutine());
         }         
@@ -122,13 +122,6 @@ public class B_CapsulePlayer : MonoBehaviour
     void OnCrouch(InputValue value)
     {
         isCrouching = value.isPressed;
-
-        /*Vector3 newLocalScale = new Vector3(
-            transform.localScale.x,
-            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
-            transform.localScale.z);
-
-        transform.localScale = newLocalScale;*/
 
         animController.SetBool("IsCrouching", isCrouching);
     }
