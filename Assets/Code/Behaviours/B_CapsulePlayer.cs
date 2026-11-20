@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,13 +44,18 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
-    bool isCrouching = false;
+    bool isCrounching = false;
     bool isSwinging = false;
+    float originalXScale;
 
     #endregion
 
 
     #region METHODS
+    private void Awake()
+    {
+        originalXScale = transform.localScale.x;
+    }
     void OnMove(InputValue value)
     {
         // Introducir info del Input en la variable movementValue
@@ -60,6 +64,11 @@ public class B_CapsulePlayer : MonoBehaviour
         if (movementValue != 0)
         {
             facingDirection = movementValue >= 0 ? 1 : -1;
+
+            transform.localScale = new Vector3(
+                originalXScale * facingDirection, 
+                transform.localScale.y,
+                transform.localScale.z);
         }
 
         // La interrogración es un if, el 1 posterior indica q si es true haga lo q hay tras el :
@@ -67,8 +76,8 @@ public class B_CapsulePlayer : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        if(! isDashing || !isSwinging)
+    { // && -> es Y     || -> es O
+        if(! isDashing && !isSwinging /*&& !isCrounching*/)
         {
             rb_2D.linearVelocityX = movementValue * playerSpeed;
             animController.SetFloat("horizontalSpeed",Mathf.Abs(rb_2D.linearVelocityX));
@@ -79,12 +88,12 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void OnJump()
     {
-        if (isGrounded)
+        if (isGrounded && !isCrounching)
         {
             // Acceder al componente RigitBody2D a través de la variable y modificar su velocidad vertical
             rb_2D.linearVelocityY = playerJumpForce;
         }
-        else if (!isDoubleJumping)
+        else if (!isDoubleJumping && !isCrounching)
         {
             rb_2D.linearVelocityY = playerJumpForce;
             isDoubleJumping = true;
@@ -93,7 +102,7 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void OnDash()
     {
-        if(! isDashing)
+        if(! isDashing && !isCrounching)
         {
             StartCoroutine(DashRoutine());
         }
@@ -102,13 +111,15 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void OnCrouch(InputValue value)
     {
-        isCrouching = value.isPressed;
+        isCrounching = value.isPressed;
 
         Vector3 newLocalScale = new Vector3(
             transform.localScale.x,
-            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2 ),
+            isCrounching ? (transform.localScale.y / 2) : (transform.localScale.y * 2 ),
             transform.localScale.z);
         transform.localScale = newLocalScale;
+
+        animController.SetBool("isCrounching", isCrounching);
     }
 
     void OnSwing(InputValue value)

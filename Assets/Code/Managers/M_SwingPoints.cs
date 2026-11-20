@@ -13,7 +13,7 @@ public class M_SwingPoints : MonoBehaviour
     #region ATTRIBUTES
     [Header("Valores externos")]
     [SerializeField]
-    List<SpringJoint2D> allJointList = new();
+    List<DistanceJoint2D> allJointList = new();
 
     [SerializeField]
     B_CapsulePlayer player;
@@ -24,7 +24,7 @@ public class M_SwingPoints : MonoBehaviour
     [Range(0, 20)]
     float minDistanceToSwing = 6;
 
-    SpringJoint2D currentClosetJoint;
+    DistanceJoint2D currentClosetJoint;
     #endregion
 
 
