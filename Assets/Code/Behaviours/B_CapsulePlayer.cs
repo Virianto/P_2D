@@ -1,13 +1,11 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// X IMPLEMENTAR DIRECCIÓN 
-/// X ARREGLAR EL DASH
-/// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// * IMPLEMENTAR DOBLE SALTO
-/// * IMPLEMENTAR BALANCEO
+/// * Crear una referencia al AnimatorController
+/// * Vincular variables de movimiento con parámetros del Animator Controller
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -17,6 +15,12 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    Animator animController;
+
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
 
     [Header("EDITABLE VALUES")]
 
@@ -40,6 +44,8 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isDashing = false;
     bool isGrounded = false;
     bool isDoubleJumping = false;
+    bool isCrouching = false;
+    bool isSwinging = false;
 
     #endregion
 
@@ -53,18 +59,23 @@ public class B_CapsulePlayer : MonoBehaviour
         if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
-        }                
+        }
+        
     }
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
-        }        
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));            
+        }
+
+        // Control de velocidad vertical para modificar animaciones:
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
     }
 
-    void OnJump()
+    void OnJump(InputValue value)
     {
         // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
         if (isGrounded)
@@ -98,12 +109,27 @@ public class B_CapsulePlayer : MonoBehaviour
         isDashing = false;
     }
 
+    void OnCrouch(InputValue value)
+    {
+        isCrouching = value.isPressed;
+
+        /*Vector3 newLocalScale = new Vector3(
+            transform.localScale.x,
+            isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
+            transform.localScale.z);
+
+        transform.localScale = newLocalScale;*/
+
+        animController.SetBool("IsCrouching", isCrouching);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {     
         if (collision.CompareTag("Ground"))
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }        
     }
 
@@ -112,6 +138,21 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("IsGrounded", isGrounded);
+        }        
+    }
+
+    void OnSwing(InputValue value)
+    {
+        isSwinging = value.isPressed;
+
+        if (isSwinging)
+        {            
+            swingPointsManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+            swingPointsManager.DisconnectPlayerFromJoint();
         }        
     }
 
