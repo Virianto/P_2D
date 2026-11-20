@@ -8,9 +8,10 @@ public class SimplePlayer2D : MonoBehaviour
     [SerializeField] Rigidbody2D rb2D;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] M_EthanSwingPoint swingPointManager;
-    [SerializeField][Range(1, 5)] float jumpForce;
-    [SerializeField][Range(1, 5)] float dashForce;
-    [SerializeField][Range(1, 5)] float moveSpeed;
+    [SerializeField] Animator animController;
+    [SerializeField] [Range(1, 5)] float jumpForce;
+    [SerializeField] [Range(1, 5)] float dashForce;
+    [SerializeField] [Range(1, 5)] float moveSpeed;
     float movementValue;
     float facingDirection = 1;
     bool isDashing = false;
@@ -24,6 +25,7 @@ public class SimplePlayer2D : MonoBehaviour
         if (movementValue != 0)
         {
             facingDirection = movementValue > 0 ? 1 : -1;
+            transform.localScale = new Vector3(facingDirection,transform.localScale.y,transform.localScale.z);
         }
     }
 
@@ -32,7 +34,9 @@ public class SimplePlayer2D : MonoBehaviour
         if (!isDashing)
         {
             rb2D.linearVelocityX = movementValue * moveSpeed;
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb2D.linearVelocityX));
         }
+        animController.SetFloat("VerticalSpeed", rb2D.linearVelocityY);
     }
 
     void OnJump()
@@ -93,7 +97,7 @@ public class SimplePlayer2D : MonoBehaviour
         }
         else
         {
-            swingPointManager.DisconnectPlayerToJoint();
+            swingPointManager.DisconnectPlayerFromJoint();
         }
         
     }

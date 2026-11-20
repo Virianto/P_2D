@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f88cc580f348647b0b3146d8a0dd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::M_EthanSwingPoint
+  player: {fileID: 0}
+  allJointsList: []
+  minDistanceToSwing: 6
 --- !u!1 &31670898
 GameObject:
   m_ObjectHideFlags: 0
@@ -6176,6 +6179,7 @@ GameObject:
   - component: {fileID: 961739752}
   - component: {fileID: 961739751}
   - component: {fileID: 961739750}
+  - component: {fileID: 961739754}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6295,12 +6299,44 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -10}
+  m_LocalPosition: {x: 37.69, y: 8.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1396164041}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961739754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961739749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBrain
+  ShowDebugText: 0
+  ShowCameraFrustum: 1
+  IgnoreTimeScale: 0
+  WorldUpOverride: {fileID: 0}
+  ChannelMask: -1
+  UpdateMethod: 2
+  BlendUpdateMethod: 1
+  LensModeOverride:
+    Enabled: 0
+    DefaultMode: 2
+  DefaultBlend:
+    Style: 1
+    Time: 2
+    CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  CustomBlends: {fileID: 0}
 --- !u!1 &982511685
 GameObject:
   m_ObjectHideFlags: 0
@@ -8145,6 +8181,7 @@ GameObject:
   - component: {fileID: 1396164040}
   - component: {fileID: 1396164044}
   - component: {fileID: 1396164043}
+  - component: {fileID: 1396164046}
   - component: {fileID: 1396164039}
   - component: {fileID: 1396164045}
   - component: {fileID: 1396164038}
@@ -8190,7 +8227,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.3}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!50 &1396164039
@@ -8269,7 +8306,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 523e805d07f9f5444824d59e851a1b3d, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 0bd97e23f8b532a4f8969605a3b00a4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -8291,8 +8328,7 @@ Transform:
   m_LocalPosition: {x: 37.69, y: 8.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 961739753}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1396164042
@@ -8328,10 +8364,10 @@ MonoBehaviour:
     rid: 3756743575461691448
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 2127289099}
+    m_Mesh: {fileID: 2114129146}
     m_LocalBounds:
-      m_Center: {x: 0.07142639, y: 0, z: 0}
-      m_Extent: {x: 0.7142792, y: 1.1428528, z: 0}
+      m_Center: {x: -0.171875, y: 0.125, z: 0}
+      m_Extent: {x: 0.640625, y: 0.875, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0
     m_FlipX: 1
@@ -8400,6 +8436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SimplePlayer2D
   rb2D: {fileID: 1396164039}
   sprite: {fileID: 1396164040}
+  swingPointManager: {fileID: 22444512}
+  animController: {fileID: 1396164046}
   jumpForce: 5
   dashForce: 5
   moveSpeed: 5
@@ -8439,6 +8477,28 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -1}
   m_Radius: 0.5
+--- !u!95 &1396164046
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396164037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6dd27ff6d3829de4890af135d0e1f34f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1408405274
 GameObject:
   m_ObjectHideFlags: 0
@@ -12552,6 +12612,101 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &1943514940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943514943}
+  - component: {fileID: 1943514942}
+  - component: {fileID: 1943514941}
+  m_Layer: 0
+  m_Name: CCam_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1943514941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943514940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 1, y: 1, z: 1}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: 0, z: -10}
+--- !u!114 &1943514942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943514940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 0
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 1396164041}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 80
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!4 &1943514943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943514940}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 37.69, y: 8.02, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1976523221
 GameObject:
   m_ObjectHideFlags: 0
@@ -12999,7 +13154,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!43 &2127289099
+--- !u!43 &2114129146
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13016,8 +13171,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 35
     localAABB:
-      m_Center: {x: 0.07142639, y: 0, z: 0}
-      m_Extent: {x: 0.7142792, y: 1.1428528, z: 0}
+      m_Center: {x: -0.171875, y: 0.125, z: 0}
+      m_Extent: {x: 0.640625, y: 0.875, z: 0}
   m_Shapes:
     vertices: []
     shapes: []
@@ -13096,7 +13251,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 980
-    _typelessdata: 0024493f004892bd00000000000080bf000000000024493f006d5b3f0024493f006d5b3f00000000000080bf000000000092243f0049923f0092243f0049923f00000000000080bf00000000006cdbbe0049923f006cdbbe0049923f00000000000080bf00000000009224bf8024893f009224bf8024893f00000000000080bf00000000009224bf004992bf009224bf004992bf00000000000080bf00000000006c5b3e004992bf006c5b3e004992bf00000000000080bf000000000024493f004892bd0024493f004892bd0000000000000000000000000024493f006d5b3f0024493f006d5b3f0000000000000000000000000024493f004892bd0024493f004892bd000000000000803f000000000024493f006d5b3f0024493f004892bd0000000000004040000000000024493f006d5b3f0024493f006d5b3f0000000000000000000000000092243f0049923f0092243f0049923f0000000000000000000000000024493f006d5b3f0024493f006d5b3f000000000000803f000000000092243f0049923f0024493f006d5b3f0000000000004040000000000092243f0049923f0092243f0049923f000000000000000000000000006cdbbe0049923f006cdbbe0049923f0000000000000000000000000092243f0049923f0092243f0049923f000000000000803f00000000006cdbbe0049923f0092243f0049923f000000000000404000000000006cdbbe0049923f006cdbbe0049923f000000000000000000000000009224bf8024893f009224bf8024893f000000000000000000000000006cdbbe0049923f006cdbbe0049923f000000000000803f00000000009224bf8024893f006cdbbe0049923f000000000000404000000000009224bf8024893f009224bf8024893f000000000000000000000000009224bf004992bf009224bf004992bf000000000000000000000000009224bf8024893f009224bf8024893f000000000000803f00000000009224bf004992bf009224bf8024893f000000000000404000000000009224bf004992bf009224bf004992bf000000000000000000000000006c5b3e004992bf006c5b3e004992bf000000000000000000000000009224bf004992bf009224bf004992bf000000000000803f00000000006c5b3e004992bf009224bf004992bf000000000000404000000000006c5b3e004992bf006c5b3e004992bf0000000000000000000000000024493f004892bd0024493f004892bd000000000000000000000000006c5b3e004992bf006c5b3e004992bf000000000000803f000000000024493f004892bd006c5b3e004992bf0000000000004040000000000024493f004892bd
+    _typelessdata: 0000f03e0000303f00000000000080bf000000000000203e0000803f0000203e0000803f00000000000080bf000000000000a0be0000803f0000a0be0000803f00000000000080bf00000000000050bf0000e03e000050bf0000e03e00000000000080bf00000000000050bf000030bf000050bf000030bf00000000000080bf00000000000030bf000040bf000030bf000040bf00000000000080bf000000000000f03e000040bf0000f03e000040bf00000000000080bf000000000000f03e0000303f0000f03e0000303f0000000000000000000000000000203e0000803f0000203e0000803f0000000000000000000000000000f03e0000303f0000f03e0000303f000000000000803f000000000000203e0000803f0000f03e0000303f0000000000004040000000000000203e0000803f0000203e0000803f0000000000000000000000000000a0be0000803f0000a0be0000803f0000000000000000000000000000203e0000803f0000203e0000803f000000000000803f000000000000a0be0000803f0000203e0000803f0000000000004040000000000000a0be0000803f0000a0be0000803f000000000000000000000000000050bf0000e03e000050bf0000e03e0000000000000000000000000000a0be0000803f0000a0be0000803f000000000000803f00000000000050bf0000e03e0000a0be0000803f000000000000404000000000000050bf0000e03e000050bf0000e03e000000000000000000000000000050bf000030bf000050bf000030bf000000000000000000000000000050bf0000e03e000050bf0000e03e000000000000803f00000000000050bf000030bf000050bf0000e03e000000000000404000000000000050bf000030bf000050bf000030bf000000000000000000000000000030bf000040bf000030bf000040bf000000000000000000000000000050bf000030bf000050bf000030bf000000000000803f00000000000030bf000040bf000050bf000030bf000000000000404000000000000030bf000040bf000030bf000040bf0000000000000000000000000000f03e000040bf0000f03e000040bf000000000000000000000000000030bf000040bf000030bf000040bf000000000000803f000000000000f03e000040bf000030bf000040bf0000000000004040000000000000f03e000040bf0000f03e000040bf0000000000000000000000000000f03e0000303f0000f03e0000303f0000000000000000000000000000f03e000040bf0000f03e000040bf000000000000803f000000000000f03e0000303f0000f03e000040bf0000000000004040000000000000f03e0000303f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -13283,3 +13438,5 @@ SceneRoots:
   - {fileID: 735260049}
   - {fileID: 1396164041}
   - {fileID: 1689909078}
+  - {fileID: 961739753}
+  - {fileID: 1943514943}
