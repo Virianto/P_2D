@@ -7,6 +7,12 @@ public class B_ClosedDoor : MonoBehaviour
     [SerializeField]
     InventoryItems requiredKeysToPass;
 
+    [SerializeField]
+    Transform entryDoor;
+
+    [SerializeField]
+    Transform exitDoor;
+
     #endregion
 
 
@@ -19,6 +25,9 @@ public class B_ClosedDoor : MonoBehaviour
     {
         B_CapsulePlayer player = other.GetComponent<B_CapsulePlayer>();
 
+        Vector3 entryDoorPosition = entryDoor.position;
+        Vector3 exitDoorPosition = exitDoor.position;
+
         // Si el que intenta pasar es el jugador...
         if (player != null)
         {
@@ -26,9 +35,7 @@ public class B_ClosedDoor : MonoBehaviour
             // Si la tiene...
             if (M_InventoryManager.Instance.playerInventory.HasFlag(requiredKeysToPass))
             {
-                Debug.Log("llaves");
-                Vector3 targetPosition = new Vector3(-11, 27, 0);
-                player.transform.position = targetPosition;
+                player.transform.position = exitDoorPosition;
             }
         }
     }

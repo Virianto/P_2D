@@ -25,10 +25,18 @@ public class M_DungeonManager : MonoBehaviour
 
     public void LifeDown()
     {
-        player.damage.Play();
         player.lifes -= 1;
         lifesCounter -= 1;
-        dungeonCanvas.UpdateLifesImage(lifesCounter);
+        player.damage.Play();
+        dungeonCanvas.UpdateLifesImageDown(lifesCounter);
+    }
+
+    public void LifeUp()
+    {
+        player.lifes += 1;
+        lifesCounter += 1;
+        player.heart.Play();
+        dungeonCanvas.UpdateLifesImageUp(lifesCounter);
     }
 
     #endregion

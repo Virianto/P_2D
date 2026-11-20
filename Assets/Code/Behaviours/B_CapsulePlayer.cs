@@ -43,12 +43,15 @@ public class B_CapsulePlayer : MonoBehaviour
     [Range(1, 15)]
     float moveSpeed = 5;
 
-    [SerializeField]
-    AudioSource jump;
+    public AudioSource jump;
 
     public AudioSource damage;
 
     public AudioSource keyCollected;
+
+    public AudioSource heart;
+
+    public AudioSource sword;
 
     float movementValue;
 
@@ -102,6 +105,16 @@ public class B_CapsulePlayer : MonoBehaviour
         if (!isDashing && !isCrouching)
         {
             StartCoroutine(DashRoutine());
+        }
+    }
+
+    void OnAttack(InputValue value)
+    {
+        if (!isDashing && !isCrouching)
+        {
+            animController.SetTrigger("IsAttacking");
+
+            sword.Play();
         }
     }
 
