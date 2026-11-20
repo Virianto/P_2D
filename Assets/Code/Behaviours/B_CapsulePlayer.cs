@@ -37,6 +37,7 @@ public class B_CapsulePlayer : MonoBehaviour
     float moveSpeed = 3;
 
     float movementValue;
+    float originalXScale;
 
     // Variable para controlar hacia dónde enfoco acciones y conectores
     float facingDirection = 1;
@@ -51,16 +52,25 @@ public class B_CapsulePlayer : MonoBehaviour
 
     #region METHODS
 
+    void Awake()
+    {
+        originalXScale = transform.localScale.x;
+    }
+
     void OnMove(InputValue value)
     {
         // Introducir información de Input en la variable movementValue
-        movementValue = value.Get<float>();
+        movementValue = value.Get<float>();               
 
         if (movementValue != 0) 
         {
             facingDirection = movementValue > 0 ? 1 : -1;
-        }
-        
+
+            transform.localScale = new Vector3(
+                originalXScale * facingDirection,
+                transform.localScale.y,
+                transform.localScale.z);
+        }        
     }
 
     void FixedUpdate()
