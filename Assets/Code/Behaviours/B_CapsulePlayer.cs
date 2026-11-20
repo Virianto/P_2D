@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,6 +41,7 @@ public class B_CapsulePlayer : MonoBehaviour
 
     // Variable para controlar hacia dónde enfoco acciones y conectores
     float facingDirection = 1;
+    float originalXScale;
 
     bool isDashing = false;
     bool isGrounded = false;
@@ -57,21 +57,27 @@ public class B_CapsulePlayer : MonoBehaviour
     private void Awake()
     {
         playerScale = transform.localScale;
+        originalXScale = transform.localScale.x;
     }
 
     void OnMove(InputValue value)
     {
+        animator.SetBool("IsCrouching", false);
         // Introducir información de Input en la variable movementValue
 
         movementValue = value.Get<float>();
 
         if (movementValue != 0)
+        {
             facingDirection = movementValue >= 0 ? 1 : -1;
+            playerScale = new Vector3(originalXScale * facingDirection, playerScale.y, playerScale.z);
+            transform.localScale = playerScale;
+        }
     }
 
     void FixedUpdate()
     {
-        if (!isDashing || !isSwinging) 
+        if (!isDashing && !isSwinging && !isCrouching) 
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
             animator.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));
@@ -87,11 +93,13 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             // Acceder al componente RigidBody2D a través de la variable y modificar su velocidad vertical
             rb_2D.linearVelocityY = jumpForce;
+            animator.SetBool("IsCrouching", false);
         }
         else if (!isDoubleJumping)
         {
             rb_2D.linearVelocityY = jumpForce;
             isDoubleJumping = true;
+            animator.Play("Jump", 0, 0);
         }
     }
 
@@ -99,20 +107,23 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         if (!isDashing)
         {
+            animator.Play("Dash", 0, 0);
             StartCoroutine(DashRoutine());
-        }         
+            //animator.Play("MartialHero", 0, 0);
+        }
     }
 
     void OnCrouch(InputValue input)
     {
-        isCrouching = input.isPressed;
-        Debug.Log("Me estoy agachando");
+        if (isCrouching = input.isPressed)
+            animator.SetBool("IsCrouching", true);
+        else
+            animator.SetBool("IsCrouching", false);
 
         //Vector3 newPlayerScale = playerScale;
 
         //newPlayerScale.y = isCrouching ? playerScale.y / 1.5f : playerScale.y;
         //transform.localScale = newPlayerScale;
-        animator.SetBool("IsCrouch", true);
     }
 
     void OnSwing(InputValue input)
