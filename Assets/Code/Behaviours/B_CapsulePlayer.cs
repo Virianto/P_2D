@@ -66,11 +66,11 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         if (facingDirection == 1)
         {
-            transform.localScale = new Vector3(facingDirection, 1f, 1f);
+            transform.localScale = new Vector3(facingDirection, transform.localScale.y, transform.localScale.z);
         }
         if (facingDirection == -1)
         {
-            transform.localScale = new Vector3(facingDirection, 1f, 1f);
+            transform.localScale = new Vector3(facingDirection, transform.localScale.y, transform.localScale.z);
         }
         if (!isDashing && !isSwinging)
         {
@@ -84,11 +84,11 @@ public class B_CapsulePlayer : MonoBehaviour
             animController.SetBool("Crouched", true);
             if (facingDirection == 1)
             {
-                transform.localScale = new Vector3(facingDirection, crouch, 1f);
+                transform.localScale = new Vector3(facingDirection, crouch, transform.localScale.z);
             }
             if (facingDirection == -1)
             {
-                transform.localScale = new Vector3(facingDirection, crouch, 1f);
+                transform.localScale = new Vector3(facingDirection, crouch, transform.localScale.z);
             }
         }
     }
@@ -150,10 +150,10 @@ public class B_CapsulePlayer : MonoBehaviour
         StartCoroutine(HitRoutine());
     }
 
-    void OnHighHit()
-    {
-        //StartCoroutine(HardHitRoutine());
-    }
+    //void OnHighHit()
+    //{
+    //    //StartCoroutine(HardHitRoutine());
+    //}
     IEnumerator DashRoutine()
     {
         playerRigidbody.linearVelocityX = dashForce * facingDirection;
