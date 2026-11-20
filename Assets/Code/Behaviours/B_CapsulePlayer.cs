@@ -1,15 +1,11 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
-/// X IMPLEMENTAR DIRECCIÓN 
-/// X ARREGLAR EL DASH
-/// X IMPLEMENTAR DETECCIÓN DE SUELO
-/// X IMPLEMENTAR DOBLE SALTO
-/// X IMPLEMENTAR AGACHARSE
-/// * IMPLEMENTAR BALANCEO
+/// * Crear una referencia al AnimatorController
+/// * Vincular variables de movimiento con parámetros del Animator Controller
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
@@ -19,6 +15,12 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    Animator animController;
+
+    [SerializeField]
+    M_SwingPoints swingPointsManager;
 
     [Header("EDITABLE VALUES")]
 
@@ -43,6 +45,7 @@ public class B_CapsulePlayer : MonoBehaviour
     bool isGrounded = false;
     bool isDoubleJumping = false;
     bool isCrouching = false;
+    bool isSwinging = false;
 
     #endregion
 
@@ -62,10 +65,14 @@ public class B_CapsulePlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isSwinging)
         {
             rb_2D.linearVelocityX = movementValue * moveSpeed;
-        }        
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));            
+        }
+
+        // Control de velocidad vertical para modificar animaciones:
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
     }
 
     void OnJump(InputValue value)
@@ -80,8 +87,6 @@ public class B_CapsulePlayer : MonoBehaviour
             rb_2D.linearVelocityY = jumpForce;
             isDoubleJumping = true; 
         }
-
-        Debug.Log(value.isPressed);
     }
 
     void OnDash()
@@ -108,12 +113,14 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         isCrouching = value.isPressed;
 
-        Vector3 newLocalScale = new Vector3(
+        /*Vector3 newLocalScale = new Vector3(
             transform.localScale.x,
             isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2),
             transform.localScale.z);
 
-        transform.localScale = newLocalScale;
+        transform.localScale = newLocalScale;*/
+
+        animController.SetBool("IsCrouching", isCrouching);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -122,6 +129,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }        
     }
 
@@ -130,6 +138,21 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("IsGrounded", isGrounded);
+        }        
+    }
+
+    void OnSwing(InputValue value)
+    {
+        isSwinging = value.isPressed;
+
+        if (isSwinging)
+        {            
+            swingPointsManager.ConnectPlayerToJoint();
+        }
+        else
+        {
+            swingPointsManager.DisconnectPlayerFromJoint();
         }        
     }
 
