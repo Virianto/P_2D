@@ -20,7 +20,7 @@ public class M_SwingPoints : MonoBehaviour
     B_CapsulePlayer player;
 
     [SerializeField]
-    List<SpringJoint2D> allJointsList = new();
+    List<DistanceJoint2D> allJointsList = new();
 
     [Header("Editable values")]
 
@@ -28,7 +28,7 @@ public class M_SwingPoints : MonoBehaviour
     [Range(0, 20)]
     float minDistanceToSwing = 5;
 
-    SpringJoint2D currentClosestJoint;
+    DistanceJoint2D currentClosestJoint;
 
     #endregion
 
