@@ -18,6 +18,7 @@ public class SimplePlayer2D : MonoBehaviour
     bool isGrounded = false;
     bool isCrouche = false;
     bool isDoubleJumping = false;
+    bool isSwinging = false;
 
     void OnMove(InputValue value)
     {
@@ -70,8 +71,8 @@ public class SimplePlayer2D : MonoBehaviour
     void OnCrouch(InputValue value)
     {
         isCrouche = value.isPressed;
-        Vector3 newLocalSacle = new Vector3(transform.localScale.x, isCrouche ? (transform.localScale.y / 2) : (transform.localScale.y * 2), transform.localScale.z);
-        transform.localScale = newLocalSacle;
+
+        animController.SetBool("IsCrouching", isCrouche);
     }
     void OnTriggerEnter2D (Collider2D other)
     {
@@ -79,6 +80,7 @@ public class SimplePlayer2D : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }
     }
     void OnTriggerExit2D (Collider2D other)
@@ -86,12 +88,14 @@ public class SimplePlayer2D : MonoBehaviour
         if (other.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }
     }
 
     void OnSwing(InputValue value)
     {
-        if (value.isPressed)
+        isSwinging = value.isPressed;
+        if (isSwinging)
         {
             swingPointManager.ConnectPlayerToJoint();
         }

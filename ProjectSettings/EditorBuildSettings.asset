@@ -4,6 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/Ethan/EthanStartDungeon.unity
+    guid: 00a2e56d96ce72f48b2ac4217cad367a
+  - enabled: 1
+    path: Assets/_Scenes/Ethan/EthanDungeon.unity
+    guid: acb83925bdca565489a5075ef1e4a54a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 010b6cf2b5a24744c8ad5635fe255435, type: 2}
