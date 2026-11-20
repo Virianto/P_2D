@@ -5,21 +5,25 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// * Conectar esta clase con el componente PlayerInput
 /// * Crear métodos específicos para las acciones del ActionsMap
-/// * Rellear esos métodos con la funcnionalidad correspondiente
+/// * Rellenar esos métodos con la funcnionalidad correspondiente
 /// </summary>
 public class B_CapsulePlayer : MonoBehaviour
 {
 
     #region ATTRIBUTES
 
+
+    [Header("EXTERNAL REFERENCES")]
+
     [SerializeField]
     M_SwingPoints swingPointsManager;
 
-    [Header("EXTERNAL REFERENCES")]
-    
-
     [SerializeField]
     Rigidbody2D rb_2D;
+
+    [SerializeField]
+    Animator animController;
+
 
     [Header("EDITABLE VALUES")]
 
@@ -34,6 +38,7 @@ public class B_CapsulePlayer : MonoBehaviour
     float moveSpeed = 3;
 
     float movementValue;
+    float originalXScale;
 
     // Variable para controlar hacia dónde enfoco acciones y conectores
     float facingDirection = 1;
@@ -50,6 +55,11 @@ public class B_CapsulePlayer : MonoBehaviour
 
 
     #region METHODS
+    void Awake()
+    {
+        originalXScale = transform.localScale.x;
+    }
+
     void OnMove(InputValue value)
     {
         // Introducir información de Input en la variable movementValue
@@ -61,16 +71,27 @@ public class B_CapsulePlayer : MonoBehaviour
         if(movementValue != 0)
         {
             facingDirection = movementValue >= 0 ? 1 : -1;
+
+            transform.localScale = new Vector3(
+            originalXScale * facingDirection,
+            transform.localScale.y,
+            transform.localScale.z);
         }
     }
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isSwinging && !isCrouching)
         {
             //rb_2D.MovePosition(rb_2D.position + (rb_2D.position * movementValue * moveSpeed * Time.fixedDeltaTime));
             rb_2D.linearVelocityX = movementValue * moveSpeed;
+            animController.SetFloat("HorizontalSpeed", Mathf.Abs(rb_2D.linearVelocityX));
         }
+
+
+        // Control de velocidad vertical para modificar animaciones:
+        animController.SetFloat("VerticalSpeed", rb_2D.linearVelocityY);
+
     }
 
     void OnJump()
@@ -78,12 +99,12 @@ public class B_CapsulePlayer : MonoBehaviour
         //Debug.Log("He saltado");
 
         // Acceder al componente rigibody2D a través de la varible y modificar su velocidad vertical
-        if (isGrounded)
+        if (isGrounded && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
 
         }
-        else if (!isDoubleJumping)
+        else if (!isDoubleJumping && !isCrouching)
         {
             rb_2D.linearVelocityY = jumpForce;
             isDoubleJumping= true;
@@ -96,7 +117,7 @@ public class B_CapsulePlayer : MonoBehaviour
         //Debug.Log("He hecho un dash");
         // Acceder al componente rigibody2D a través de la varible y modificar su velocidad horizontal
         //rb_2D.linearVelocityX = dashForce;  
-        if(!isDashing)
+        if(!isDashing && !isCrouching)
         {
             StartCoroutine(DashRoutine());
         }
@@ -125,13 +146,15 @@ public class B_CapsulePlayer : MonoBehaviour
 
         // Vector3 newLocalScale = new Vector3(transform.localScale.x, isCrouching ? (transform.localScale.y / 2) : transform.localScale.y, transform.localScale.z);
 
-        Vector3 newLocalScale = new Vector3(
+        /*Vector3 newLocalScale = new Vector3(
                     transform.localScale.x,
                     isCrouching ? 0.4f : 0.8f,
                     transform.localScale.z);
 
         // transform.localScale.y = isCrouching ? 0.4f : 0.8f;
-        transform.localScale = newLocalScale;
+        transform.localScale = newLocalScale;*/
+
+        animController.SetBool("IsCrouching", isCrouching);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -141,6 +164,7 @@ public class B_CapsulePlayer : MonoBehaviour
         {
             isGrounded = true;
             isDoubleJumping = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }
 
     }
@@ -149,6 +173,7 @@ public class B_CapsulePlayer : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = false;
+            animController.SetBool("IsGrounded", isGrounded);
         }
 
     }
@@ -164,7 +189,7 @@ public class B_CapsulePlayer : MonoBehaviour
         else
         {
             isSwinging = false;
-            swingPointsManager.DisconectPlayerFromJoint();
+            swingPointsManager.DisconnectPlayerFromJoint();
         }
     
     }

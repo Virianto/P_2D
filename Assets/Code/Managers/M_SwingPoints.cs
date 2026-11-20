@@ -18,7 +18,7 @@ public class M_SwingPoints : MonoBehaviour
     B_CapsulePlayer player;
 
     [SerializeField]
-    List<SpringJoint2D> allJointsList = new();
+    List<DistanceJoint2D> allJointsList = new();
 
     [Header("EDITABLE VALUES")]
 
@@ -26,7 +26,7 @@ public class M_SwingPoints : MonoBehaviour
     [Range(0, 20)]
     float minDistanceToSwing = 6;
 
-    SpringJoint2D currentClosestJoint;
+    DistanceJoint2D currentClosestJoint;
 
 
     #endregion
@@ -35,55 +35,46 @@ public class M_SwingPoints : MonoBehaviour
 
     #region METHODS
 
-    private void Update()
+    void Update()
     {
-        // Chivato para quedarme con el joint más cercano
+        // chivato para quedarme con el joint más cercano
         float closestCurrentDistance = Mathf.Infinity;
 
         // Recorrer la lista de TODOS los joints y buscar el más próximo al jugador
-        for (int i = 0; i < allJointsList.Count; i++)
+        for (int i = 0; i < allJointsList.Count; ++i)
         {
+            float distanceBetweenPlayerAndJoint = Vector3.Distance(player.transform.position, allJointsList[i].transform.position);
 
-            float distanceBetweenPlayerAndJoint =
-                  Vector3.Distance(
-                      player.transform.position,
-                      allJointsList[i].transform.position);
-
-
+            // Si el joint está a una distancia válida para balancearme...
             if (distanceBetweenPlayerAndJoint <= minDistanceToSwing)
             {
                 // Si la distancia de este joint es la menor que llevo calculada hasta ahora...
                 if (distanceBetweenPlayerAndJoint < closestCurrentDistance)
                 {
-                    // Me quedo con este valor para futuras comparaciones
+                    // Me quedo con este valor para las futuras comparaciones
                     closestCurrentDistance = distanceBetweenPlayerAndJoint;
                     // Me quedo con el elemento de la lista para conectar al jugador
                     currentClosestJoint = allJointsList[i];
-                
-                }          
+                }
             }
         }
     }
 
     public void ConnectPlayerToJoint()
     {
-
-        // Si no ha conexión válida posible, no hago nada
-        if(currentClosestJoint != null)
+        // Si no hay conexión válida posible, no hago nada
+        if (currentClosestJoint != null)
         {
             currentClosestJoint.connectedBody = player.GetComponent<Rigidbody2D>();
-
         }
     }
 
-    public void DisconectPlayerFromJoint()
+    public void DisconnectPlayerFromJoint()
     {
-
         if (currentClosestJoint != null)
         {
             currentClosestJoint.connectedBody = null;
         }
-
     }
     #endregion
 }
