@@ -32,15 +32,15 @@ public class B_CapsulePlayer : MonoBehaviour
     public int lifes = 3;
 
     [SerializeField]
-    [Range(1, 15)]
-    float jumpForce = 10;
+    [Range(1, 10)]
+    float jumpForce = 5;
 
     [SerializeField]
-    [Range(1, 15)]
-    float dashForce = 10;
+    [Range(1, 10)]
+    float dashForce = 5;
 
     [SerializeField]
-    [Range(1, 15)]
+    [Range(1, 10)]
     float moveSpeed = 5;
 
     public AudioSource jump;
@@ -53,11 +53,15 @@ public class B_CapsulePlayer : MonoBehaviour
 
     public AudioSource sword;
 
+    public AudioSource dead;
+
+    public AudioSource swordSlashing;
+
     float movementValue;
 
     float originalXScale;
 
-    // Variable para controlar hacia dónde enfocamos acciones y conectores
+    // Variable para controlar hacia dónde enfocamos acciones y conectores (1 == derecha, -1 == izquieda)
     float facingDirection = 1;
 
     bool isDashing = false;
@@ -108,18 +112,14 @@ public class B_CapsulePlayer : MonoBehaviour
         }
     }
 
-    void OnAttack(InputValue value)
-    {
-        if (!isDashing && !isCrouching)
-        {
-            animController.SetTrigger("IsAttacking");
-
-            sword.Play();
-        }
-    }
-
     IEnumerator DashRoutine()
     {
+        // Lanzar la animación
+        animController.SetTrigger("IsDashing");
+
+        // Lanzar el sonido
+        swordSlashing.Play();
+
         // Empujar al jugador con la fuerza indicada
         rb_2D.linearVelocityX = dashForce * facingDirection;
 
@@ -131,6 +131,16 @@ public class B_CapsulePlayer : MonoBehaviour
 
         // Modificar el booleano de estado
         isDashing = false;
+    }
+
+    void OnAttack(InputValue value)
+    {
+        if (!isDashing && !isCrouching)
+        {
+            animController.SetTrigger("IsAttacking");
+
+            sword.Play();
+        }
     }
 
     void OnMove(InputValue value)
@@ -150,7 +160,7 @@ public class B_CapsulePlayer : MonoBehaviour
     {
         isCrouching = value.isPressed;
 
-        Vector3 newLocalScale = new Vector3(transform.localScale.x, isCrouching ? (transform.localScale.y / 2) : (transform.localScale.y * 2), transform.localScale.z);
+        Vector3 newLocalScale = new Vector3(transform.localScale.x, isCrouching ? (transform.localScale.y / 1.5f) : (transform.localScale.y * 1.5f), transform.localScale.z);
         transform.localScale = newLocalScale; 
 
         animController.SetBool("IsCrouching", isCrouching);
