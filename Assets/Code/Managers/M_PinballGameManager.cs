@@ -108,7 +108,7 @@ public class M_PinballGameManager : MonoBehaviour
 
     public void GenerateNewBall()
     {
-            Instantiate(ballPrefab, ballPosition, Quaternion.identity);
+        Instantiate(ballPrefab, ballPosition, Quaternion.identity);
         activeBalls ++;
     }
 
