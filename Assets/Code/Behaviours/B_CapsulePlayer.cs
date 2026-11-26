@@ -1,3 +1,4 @@
+using Code.Utils;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +27,9 @@ public class B_CapsulePlayer : MonoBehaviour
 
     [SerializeField]
     M_SwingPoints swingsPointsManager;
+
+    [SerializeField]
+    B_Attack2D attack;
 
     [Header("Editable values")]
 
@@ -140,6 +144,8 @@ public class B_CapsulePlayer : MonoBehaviour
             animController.SetTrigger("IsAttacking");
 
             sword.Play();
+
+            attack.Attack();
         }
     }
 
